@@ -1,10 +1,10 @@
 <?php
 
-namespace CountdownBundle\Controller;
+namespace AppBundle\Controller;
 
-use CountdownBundle\Entity\Item;
-use CountdownBundle\Entity\Project;
-use CountdownBundle\Form\ItemType;
+use AppBundle\Entity\Item;
+use AppBundle\Entity\Project;
+use AppBundle\Form\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class DefaultController
- * @package Countdownbundle\Controller
- *
- * @Route(host="countdown.dev")
+ * @package AppBundle\Controller
  */
 class ItemController extends Controller
 {
@@ -104,7 +102,7 @@ class ItemController extends Controller
         }
 
         return $this->render(
-            '@Countdown/Form/createOrEditItem.html.twig',
+            '@App/Form/createOrEditItem.html.twig',
             [
                 'project' => $project,
                 'form' => $form->createView(),

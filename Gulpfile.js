@@ -3,24 +3,7 @@ var sass = require('gulp-sass');
 var minify = require('gulp-minifier');
 
 gulp.task('sass', function () {
-    gulp.src('./src/AppBundle/Resources/public/sass/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(minify({
-            minify: true,
-            collapseWhitespace: true,
-            conservativeCollapse: true,
-            minifyJS: false,
-            minifyCSS: true,
-            getKeptComment: function (content, filePath) {
-                var m = content.match(/\/\*![\s\S]*?\*\//img);
-                return m && m.join('\n') + '\n' || '';
-            }
-        }))
-        .pipe(gulp.dest('./web/css'));
-});
-
-gulp.task('countdown-sass', function () {
-    gulp.src('./src/CountdownBundle/Resources/sass/*.scss')
+    gulp.src('./src/AppBundle/Resources/sass/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(minify({
             minify: true,
@@ -37,21 +20,7 @@ gulp.task('countdown-sass', function () {
 });
 
 gulp.task('js', function () {
-    return gulp.src('./src/AppBundle/Resources/public/js/*.js').pipe(minify({
-        minify: false,
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        minifyJS: false,
-        minifyCSS: false,
-        getKeptComment: function (content, filePath) {
-            var m = content.match(/\/\*![\s\S]*?\*\//img);
-            return m && m.join('\n') + '\n' || '';
-        }
-    })).pipe(gulp.dest('./web/js'));
-});
-
-gulp.task('countdown-js', function () {
-    return gulp.src('./src/CountdownBundle/Resources/js/*.js').pipe(minify({
+    return gulp.src('./src/AppBundle/Resources/js/*.js').pipe(minify({
         minify: false,
         collapseWhitespace: true,
         conservativeCollapse: true,
@@ -70,10 +39,8 @@ gulp.task('updateFoundationJS', function () {
 
 //Watch tasks
 gulp.task('default', function () {
-    gulp.watch('./src/AppBundle/Resources/public/sass/*.scss', ['sass']);
-    gulp.watch('./src/CountdownBundle/Resources/sass/*.scss', ['countdown-sass']);
+    gulp.watch('./src/AppBundle/Resources/sass/*.scss', ['sass']);
     gulp.watch('./src/app/Resources/js/**/*.js', ['js']);
-    gulp.watch('./src/AppBundle/Resources/public/js/**/*.js', ['js']);
-    gulp.watch('./src/CountdownBundle/Resources/js/**/*.js', ['countdown-js']);
+    gulp.watch('./src/AppBundle/Resources/js/**/*.js', ['js']);
     gulp.watch('./src/vendor/zurb/foundation/dist/js/**/*.js', ['updateFoundationJS']);
 });

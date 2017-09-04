@@ -1,14 +1,12 @@
 <?php
 
-namespace CountdownBundle\Form;
+namespace AppBundle\Form;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemType extends AbstractType
+class ProjectType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,10 +15,9 @@ class ItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('title')
             ->add('description')
-            ->add('owner')
-            ->add('start', TimeType::class, ['input' => 'string', 'widget' => 'choice']);
+            ->add('date');
     }
 
     /**
@@ -30,7 +27,8 @@ class ItemType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'CountdownBundle\Entity\Item',
+                'data_class' => 'AppBundle\Entity\Project',
+                'users' => [],
             ]
         );
     }

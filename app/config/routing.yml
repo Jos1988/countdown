@@ -4,7 +4,3 @@ fos_user:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-
-countdown:
-    resource: '@CountdownBundle/Controller/'
-    type: annotation

@@ -1,18 +1,18 @@
 <?php
 
-namespace CountdownBundle\Services;
+namespace AppBundle\Services;
 
-use CountdownBundle\Entity\Item;
-use CountdownBundle\Entity\Project;
-use CountdownBundle\Repository\ItemRepository;
-use CountdownBundle\Repository\ProjectRepository;
+use AppBundle\Entity\Item;
+use AppBundle\Entity\Project;
+use AppBundle\Repository\ItemRepository;
+use AppBundle\Repository\ProjectRepository;
 use DateTime;
 use DateTimeZone;
 
 /**
  * Class CountdownService
  *
- * @package CountdownBundle\Services
+ * @package AppBundle\Services
  */
 class CountdownService
 {

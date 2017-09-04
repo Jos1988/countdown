@@ -1,11 +1,11 @@
 <?php
 
-namespace CountdownBundle\Controller;
+namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
-use CountdownBundle\Entity\Project;
-use CountdownBundle\Form\ProjectType;
-use CountdownBundle\Form\ScheduleType;
+use AppBundle\Entity\Project;
+use AppBundle\Form\ProjectType;
+use AppBundle\Form\ScheduleType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,8 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class DefaultController
  * @package Countdownbundle\Controller
- *
- * @Route(host="countdown.dev")
  */
 class ProjectController extends Controller
 {
@@ -32,7 +30,7 @@ class ProjectController extends Controller
     {
         $projects = $this->container->get('countdown.repository.project')->findAll();
 
-        return $this->render('CountdownBundle:View:index.html.twig', ['projects' => $projects]);
+        return $this->render('@App/index.html.twig', ['projects' => $projects]);
     }
 
     /**
@@ -47,7 +45,7 @@ class ProjectController extends Controller
     public function viewAction(Project $project)
     {
         return $this->render(
-            '@Countdown/View/viewProject.html.twig',
+            '@App/viewProject.html.twig',
             ['project' => $project, 'endTime' => '23:59:59']
         );
     }
@@ -109,7 +107,7 @@ class ProjectController extends Controller
         }
 
         return $this->render(
-            '@Countdown/View/schedule.html.twig',
+            'AppBundle::schedule.html.twig',
             [
                 'project' => $project,
                 'form' => $form->createView(),
@@ -168,7 +166,7 @@ class ProjectController extends Controller
         }
 
         $form = $this->renderView(
-            '@Countdown/Form/createOrEditPartial.html.twig',
+            '@App/Form/createOrEditPartial.html.twig',
             [
                 'form' => $form->createView(),
                 'title' => $title,
@@ -219,7 +217,7 @@ class ProjectController extends Controller
         }
 
         return $this->render(
-            '@Countdown/Form/createOrEdit.html.twig',
+            '@App/Form/createOrEdit.html.twig',
             ['form' => $form->createView(), 'title' => $title]
         );
     }

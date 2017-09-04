@@ -1,6 +1,6 @@
 <?php
 
-namespace CountdownBundle\Form;
+namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -37,7 +37,7 @@ class ScheduleType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'CountdownBundle\Entity\Project',
+                'data_class' => 'AppBundle\Entity\Project',
             ]
         );
     }

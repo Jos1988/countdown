@@ -1,6 +1,6 @@
 <?php
 
-namespace CountdownBundle\Entity;
+namespace AppBundle\Entity;
 
 use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,7 +11,7 @@ use DateTime;
  * Customer
  *
  * @ORM\Table(name="Project")
- * @ORM\Entity(repositoryClass="CountdownBundle\Repository\ProjectRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
  */
 class Project
 {
@@ -48,7 +48,7 @@ class Project
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="CountdownBundle\Entity\Item", mappedBy="project", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item", mappedBy="project", cascade={"persist", "remove"})
      * @ORM\OrderBy(value={"start"="ASC"})
      */
     private $items;

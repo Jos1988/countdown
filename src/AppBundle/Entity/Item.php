@@ -1,6 +1,6 @@
 <?php
 
-namespace CountdownBundle\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Customer
  *
  * @ORM\Table(name="Item")
- * @ORM\Entity(repositoryClass="CountdownBundle\Repository\ItemRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ItemRepository")
  */
 class Item
 {
@@ -59,7 +59,7 @@ class Item
     /**
      * @var Project
      *
-     * @ORM\ManyToOne(targetEntity="CountdownBundle\Entity\Project", inversedBy="items", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="items", cascade={"persist", "remove"})
      */
     private $project;
 

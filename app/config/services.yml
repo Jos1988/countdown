@@ -7,9 +7,6 @@ services:
 #    AppBundle\:
 #        resource: '../../src/AppBundle/*'
 #        exclude: '../../src/AppBundle/{Entity,Repository}'
-#    CountdownBundle\:
-#        resource: '../../src/CountdownBundle/*'
-#        exclude: '../../src/CountdownBundle/{Entity,Repository}'
 
     app.repository.user:
         class: AppBundle\Repository\UserRepository
@@ -20,23 +17,23 @@ services:
             - AppBundle\Entity\User
 
     countdown.repository.item:
-        class: CountdownBundle\Repository\ItemRepository
+        class: AppBundle\Repository\ItemRepository
         public: true
         autowire: false
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
-            - CountdownBundle\Entity\Item
+            - AppBundle\Entity\Item
 
     countdown.repository.project:
-        class: CountdownBundle\Repository\ProjectRepository
+        class: AppBundle\Repository\ProjectRepository
         public: true
         autowire: false
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
-            - CountdownBundle\Entity\Project
+            - AppBundle\Entity\Project
 
     countdown.service:
-        class: CountdownBundle\Services\CountdownService
+        class: AppBundle\Services\CountdownService
         public: true
         autowire: false
         arguments:

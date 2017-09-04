@@ -1,8 +1,8 @@
 <?php
 
-namespace CountdownBundle\Repository;
+namespace AppBundle\Repository;
 
-use CountdownBundle\Entity\Project;
+use AppBundle\Entity\Project;
 use Doctrine\ORM\EntityRepository;
 
 /**

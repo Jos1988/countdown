@@ -16,14 +16,6 @@ security:
     firewalls:
         main:
             pattern: ^/
-            host: hammer.dev
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-            logout:       true
-            anonymous:    true
-        countdown:
-            pattern: ^/
             host: countdown.dev
             form_login:
                 provider: fos_userbundle

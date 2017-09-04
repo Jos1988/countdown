@@ -54,63 +54,6 @@ function showNavMenu() {
 }
 
 ////////////////////////////////////////////////////////////////
-////////////////////////// Tiles ///////////////////////////////
-////////////////////////////////////////////////////////////////
-
-//Size application tiles.
-function sizeAppTiles(mediaTransition) {
-    var tiles = $('.application-tile');
-
-    if (tiles[0]) {
-        var width = tiles[0].offsetWidth;
-
-        tiles.css('height', (width / 1.5));
-        if (-1 !== $.inArray(Foundation.MediaQuery.current, ['large', 'xlarge', 'xxlarge'])) {
-            sizeApplicationWrapperContent();
-        } else if (mediaTransition) {
-            $('.tile-wrapper').removeAttr('style');
-        }
-    }
-}
-
-//Position text in all application tiles.
-function positionAppTitles() {
-    var tiles = $('.application-tile');
-    tiles.each(function () {
-        if (!$(this).parent('.tile-wrapper')[0] || -1 === $.inArray(Foundation.MediaQuery.current, ['large', 'xlarge', 'xxlarge'])) {
-            positionAppTitle(this, this.offsetHeight);
-        }
-    });
-}
-
-//position text in individual app tile.
-function positionAppTitle(tile, height) {
-    var topPadding = (height - $(tile).find('div')[0].offsetHeight) / 2;
-    $(tile).css('padding-top', topPadding);
-}
-
-//size application tiles with application wrapper.
-function sizeApplicationWrapperContent() {
-    var wrappers = $('.tile-wrapper');
-    wrappers.each(function () {
-        var height;
-        var marginTop = parseInt($(this).css('margin-left'), 10);
-        if ($(this).attr('data-height')) {
-            height = $(this).attr('data-height');
-        } else {
-            height = this.offsetHeight;
-            $(this).attr('data-height', height);
-        }
-
-        var newHeight = height - marginTop * 1.5;
-        $(this).css('margin-top', marginTop);
-
-        $(this).find('.application-tile').css('height', newHeight);
-        positionAppTitle($(this).find('.application-tile')[0], newHeight);
-    });
-}
-
-////////////////////////////////////////////////////////////////
 ///////////////////// general styling //////////////////////////
 ////////////////////////////////////////////////////////////////
 

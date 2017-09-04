@@ -2,7 +2,7 @@
 
     {% block javascripts %}
         {{ parent() }}
-        {% javascripts '@AppBundle/Resources/public/js/user-form.js' %}
+        {% javascripts '@AppBundle/Resources/js/user-form.js' %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}
