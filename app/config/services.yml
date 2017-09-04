@@ -1,0 +1,46 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+#    AppBundle\:
+#        resource: '../../src/AppBundle/*'
+#        exclude: '../../src/AppBundle/{Entity,Repository}'
+#    CountdownBundle\:
+#        resource: '../../src/CountdownBundle/*'
+#        exclude: '../../src/CountdownBundle/{Entity,Repository}'
+
+    app.repository.user:
+        class: AppBundle\Repository\UserRepository
+        public: true
+        autowire: false
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\User
+
+    countdown.repository.item:
+        class: CountdownBundle\Repository\ItemRepository
+        public: true
+        autowire: false
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - CountdownBundle\Entity\Item
+
+    countdown.repository.project:
+        class: CountdownBundle\Repository\ProjectRepository
+        public: true
+        autowire: false
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - CountdownBundle\Entity\Project
+
+    countdown.service:
+        class: CountdownBundle\Services\CountdownService
+        public: true
+        autowire: false
+        arguments:
+        arguments:
+            - "@countdown.repository.project"
+            - "@countdown.repository.item"
+            - "%app_timezone%"

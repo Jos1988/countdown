@@ -1,0 +1,83 @@
+@import "settings";
+@import "../../../../../vendor/zurb/foundation/assets/foundation";
+@import "footer.scss";
+@import "iconStyles";
+@import "fos-form";
+@import "hot-checkbox";
+@import "nav-menu";
+@import "breakPoints";
+@import "app-page";
+
+$main-drop: 1em;
+
+#background {
+  height: 100%;
+  //background: #38a1ad url("/bundles/app/images/snorkel.jpg") no-repeat fixed center;
+  background: #38a1ad url("/images/new-york-city.jpg") no-repeat fixed center;
+  background-size: cover;
+}
+
+select {
+  background-image: none;
+}
+
+.thumbnail > img {
+  width: 100%;
+}
+
+.slogan {
+  margin: 1em 0 0 0;
+  height: 100%;
+
+  .slogan-wrapper {
+    background-color: $foreground-color;
+
+    h1 {
+      color: $foreground-text;
+      font-weight: bold;
+      vertical-align: middle;
+    }
+  }
+}
+
+#home-box {
+  margin-top: 1em;
+  background-color: $foreground-color;
+  color: $foreground-text;
+  border: none;
+}
+
+.callout.alert {
+  background-color: $alert;
+}
+
+.application-tile {
+  background-color: $foreground-color;
+  text-align: center;
+}
+
+.foreground {
+  background-color: $foreground-color;
+  padding: 1em;
+}
+
+.no-button-webclass {
+  -webkit-appearance: none !important;
+}
+
+.close-button {
+  font-size: 1.6em;
+}
+
+.main {
+  margin-top: $main-drop;
+}
+
+.text {
+  margin-top: 0.5rem;
+  p {
+    background: $foreground-color;
+    margin: 0.2rem 0;
+    padding: 0.5rem;
+  }
+}

@@ -1,0 +1,61 @@
+@import "../../../AppBundle/Resources/public/sass/settings";
+
+////Index page
+.form-buttons {
+  margin-bottom: 0;
+}
+
+////Schedule page
+.start {
+  .column {
+    padding: 0 0.15rem;
+  }
+  div.row {
+    margin-top: 0;
+  }
+}
+
+.schedule-head {
+  font-weight: bold;
+}
+
+.schedule-item {
+  background-color: $white;
+  padding: 0.5rem;
+}
+
+.items {
+  .row {
+   margin-top: 0.5rem;
+  }
+}
+
+////View page
+.view-item-wrapper {
+  padding: 0.25rem;
+}
+
+.view-item {
+  background-color: $white;
+  font-size: 1.5rem;
+  height: 2.5rem;
+  padding: 0;
+  .item-start{
+  }
+
+  .item-name{
+  }
+}
+
+.completed {
+  background-color: $secondary-color;
+}
+
+//progressbar
+.count-down-bar {
+  border: 0;
+
+  .count-down-progress {
+    height: 102%;
+  }
+}

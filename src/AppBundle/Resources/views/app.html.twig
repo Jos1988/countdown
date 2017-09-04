@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'menuStatus' : menuStatus}) }}
+
+    <div class="row">
+        <div class="large-12 column main">
+            <div class="foreground">
+                <div class="small-10 small-offset-1">
+                    <div class="row">
+                        <h3>{{ app.projectName }}</h3>
+                    </div>
+                    <div class="row">
+                        <h6 class="small-6 medium-4 large-1 column">name:</h6>
+                        <h6 class="small-6 medium-8 large-11 column">{{ app.name }}</h6>
+                    </div>
+                    <div class="row">
+                        <h6 class="small-6 medium-4 large-1 column">status:</h6>
+                        <h6 class="small-6 medium-8 large-11 column">{{ app.status }}</h6>
+
+                    </div>
+                    <div class="row filler show-for-large" data-filler="1"></div>
+                    <div class="row text">
+                        <h5>Description</h5>
+                        <p>{{ app.description }}</p>
+                    </div>
+                    <div class="row text">
+                        <h5>Economics</h5>
+                        <p>{{ app.economics }}</p>
+                    </div>
+                    <div class="row text">
+                        <h5>Notes</h5>
+                        <p>{{ app.notes }}</p>
+                    </div>
+                    <div class="row text">
+                        <h5>Wireframes</h5>
+                        <div class="small-10 small-offset-1">
+                            {% if app.projectName == 'Countdown' %}
+                                <object data="/PDF/Countdown-wireframes.pdf" id="wireframe"></object>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-2 small-offset-10 column">
+                            <a href="{{ app.address }}" class="button large small-12 column">Visit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('AppBundle:Partial:footer.html.twig') }}
+{% endblock %}

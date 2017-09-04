@@ -1,0 +1,27 @@
+$highlight: $primary-color;
+
+.responsive-blog-footer {
+  background: $background-color;
+  padding: 1rem 2rem;
+  color: darken($background-text, 25%);
+  margin-top: 2em;
+
+  h4 {
+    @media screen and (max-width: 39.9375em) {
+      font-size: 1.5rem;
+    }
+  }
+
+  p {
+    color: $background-text;
+  }
+
+  .about-section, .tag-section {
+    margin-bottom: 0.5rem;
+
+    a {
+      color: $highlight;
+    }
+  }
+
+}

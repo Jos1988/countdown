@@ -1,0 +1,7 @@
+.pop-out {
+  transition: all .2s ease-in-out;
+}
+
+.pop-out:hover {
+  transform: scale(1.1);
+}

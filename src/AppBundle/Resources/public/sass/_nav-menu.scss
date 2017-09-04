@@ -1,0 +1,100 @@
+$nav-text-color: lighten($background-text, 25%);
+$menu-text-color: $foreground-color;
+$nav-background: lighten($background-color, 10%);
+$offcanvas-padding: 20px;
+
+.multilevel-offcanvas {
+  background: darken($nav-background, 5%);
+  padding: 20px;
+  color: $white;
+
+  > .menu {
+    margin-bottom: 1rem;
+  }
+
+  .menu a {
+    color: rgba($nav-text-color,.6);
+    padding-top: 7px;
+    padding-bottom: 7px;
+    transition: color 0.2s ease-in;
+
+    &:hover {
+      color: $nav-text-color;
+    }
+  }
+
+  .fa {
+    color: $nav-text-color;
+  }
+
+  .is-accordion-submenu-parent > a::after {
+    border-color: rgba($nav-text-color,.6) transparent transparent;
+  }
+
+  .social-links {
+    margin-left: $offcanvas-padding;
+
+    li {
+      margin-right: 5px;
+    }
+
+    a:hover .fa {
+      color: darken($nav-text-color,25%);
+      transition: color .2s ease-in;
+    }
+
+    .fa {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+#home-box h6 {
+  margin: 0px;
+}
+
+.body-info {
+  text-align: center;
+  color: $nav-background;
+
+  .button {
+    margin: 1rem 0;
+    padding: 0.85em 2em;
+  }
+}
+
+.is-open + .off-canvas-content .hamburger {
+  .line:nth-child(1),
+  .line:nth-child(3) {
+    width: 12px;
+  }
+
+  .line:nth-child(1) {
+    transform: translateX(-5px) rotate(-45deg);
+  }
+
+  .line:nth-child(3) {
+    transform: translateX(-5px) rotate(45deg);
+  }
+}
+
+.hamburger .line {
+  width: 20px;
+  height: 2px;
+  background-color: $menu-text-color;
+  display: block;
+  margin: 3px auto;
+  transition: all 0.3s ease-in-out;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .line:nth-child(1) {
+    margin-top: 2px;
+  }
+}
+
+.hamburger .line:nth-child(1){
+    margin-top: 2px;
+}

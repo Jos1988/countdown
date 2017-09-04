@@ -1,0 +1,30 @@
+{% extends 'CountdownBundle:View:CountdownBase.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/Jquery/jquery-ui.min.css') }}">
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="small-10 small-offset-1 main-view-holder" data-end-time="{{ endTime }}">
+        {% for item in project.items %}
+            <div class="row view-item-wrapper">
+                <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
+                     data-start="{{ item.start }}">
+                    <div class="small-2 column item-start">
+                        {{ item.start }}
+                    </div>
+                    <div class="small-4 text-left column end item-name">
+                        {{ item.name }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/Jquery/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('js/viewProject.js') }}"></script>
+{% endblock %}

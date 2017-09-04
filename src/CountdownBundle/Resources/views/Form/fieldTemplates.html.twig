@@ -1,0 +1,51 @@
+{% block form_errors %}
+    {% if errors|length > 0 -%}
+        {% if form.parent %}<small class="error">{% else %}<div data-alert class="alert-box alert">{% endif %}
+        {%- for error in errors -%}
+            {{ error.message }}
+            {% if not loop.last %}, {% endif %}
+        {%- endfor -%}
+        {% if form.parent %}</small>{% else %}</div>{% endif %}
+    {%- endif %}
+{% endblock %}
+
+
+{%- block time_widget -%}
+    {%- if widget == 'single_text' -%}
+        {{ block('form_widget_simple') }}
+    {%- else -%}
+        {%- set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} -%}
+        <div {{ block('widget_container_attributes') }}>
+            <div class="small-6 column">{{ form_widget(form.hour, vars) }}</div>
+            {% if with_minutes %}
+                <div class="small-6 column">{{ form_widget(form.minute, vars) }}</div>
+            {% endif %}
+            {% if with_seconds %}
+                <div class="small-6 column">{{ form_widget(form.second, vars) }}</div>
+            {% endif %}
+        </div>
+    {%- endif -%}
+{%- endblock time_widget -%}
+
+
+{% block _items_entry_widget %}
+    <div class="row">
+        <fieldset class="schedule-item">
+            <div class="small-2 column start">
+                {{ form_widget(item.start, {'attr' : {'class' : 'row'}}) }}
+            </div>
+            <div class="small-3 column">
+                <div>{{ form_widget(item.name) }}</div>
+            </div>
+            <div class="small-4 column">
+                <div>{{ form_widget(item.description) }}</div>
+            </div>
+            <div class="small-3 column">
+                <div>{{ form_widget(item.owner) }}</div>
+            </div>
+            <div>
+
+            </div>
+        </fieldset>
+    </div>
+{% endblock %}

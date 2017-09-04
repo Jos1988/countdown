@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="{{ asset('css/countdown.css') }}"/>
+    {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'appTitle' : 'Countdown'}) }}
+     <div class="row">
+         <div class="large-12 column main">
+             <div class="foreground">
+                 <div class="large-6 medium-8 small-10 large-offset-3 medium-offset-2 small-offset-1 text-center">
+                     <h3>{{ title }}</h3>
+
+                     {{ form_start(form) }}
+                     <div class="row">
+                         <div class="small-12 medium-3 text-center medium-text-left column">
+                             {{ form_label(form.title) }}
+                         </div>
+                         <div class="small-12 medium-9 column">
+                             {{ form_widget(form.title) }}
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="small-12 medium-3 text-center medium-text-left column">
+                             {{ form_label(form.description) }}
+                         </div>
+                         <div class="small-12 medium-9 column">
+                             {{ form_widget(form.description) }}
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="small-12 medium-3 text-center medium-text-left column">
+                             {{ form_label(form.date.date) }}
+                         </div>
+                         <div class="small-12 medium-3 column">
+                             {{ form_widget(form.date.date.day) }}
+                         </div>
+                         <div class="small-12 medium-3 column">
+                             {{ form_widget(form.date.date.month) }}
+                         </div>
+                         <div class="small-12 medium-3 column">
+                             {{ form_widget(form.date.date.year) }}
+                         </div>
+                     </div>
+                     <div class="row">
+                         <div class="small-12 medium-3 text-center medium-text-left column">
+                             {{ form_label(form.date.time) }}
+                         </div>
+                         <div class="small-12 medium-3 column">
+                             {{ form_widget(form.date.time.hour) }}
+                         </div>
+                         <div class="small-12 medium-3 column end">
+                             {{ form_widget(form.date.time.minute) }}
+                         </div>
+                     </div>
+
+                     <div class="small-12">
+                         <div class="button-group form-buttons small-12 small-offset-0 text-right">
+                             <button type="submit" value="save project" class="button primary">save</button>
+                             <a class="button secondary"
+                                href={{ path("countdown_index") }}>cancel</a>
+                         </div>
+                     </div>
+                     {{ form_end(form) }}
+                 </div>
+             </div>
+         </div>
+     </div>
+ {% endblock %}

@@ -1,0 +1,26 @@
+<div class="multilevel-offcanvas off-canvas position-right" id="navigation-menu" data-off-canvas
+        {% if menuStatus %}
+            data-status="{{ menuStatus }}"
+        {% endif %}
+>
+    <ul class="vertical menu" data-accordion-menu>
+        <ul class="vertical menu">
+            <li><a href="{{ path('homepage', {'menu-status'  : 'open' }) }}">Home</a></li>
+        </ul>
+        <li><a href="#">Apps</a>
+            <ul class="menu vertical nested">
+                <li><a href="{{ path('appPage', {'app': 1}) }}">Countdown</a></li>
+                <li><a href="#">App 2</a></li>
+                <li><a href="#">App 3</a></li>
+                <li><a href="#">App 4</a></li>
+            </ul>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN') %}
+            <li><a href="#">Administration</a>
+                <ul class="menu vertical nested">
+                    <li><a href="{{ path('user_management', {'menu-status'  : 'open' }) }}">Users</a></li>
+                </ul>
+            </li>
+        {% endif %}
+    </ul>
+</div>

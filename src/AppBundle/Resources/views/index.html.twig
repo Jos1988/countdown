@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'menuStatus' : menuStatus}) }}
+
+    <div class="row filler show-for-large" data-filler="3"></div>
+
+    <div class="row">
+        <div class="medium-6 column">
+            <div class="application-tile pop-out" id="2">
+                <div>
+                    <ul>
+                        <li><b>TODO:</b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="medium-6 column">
+            <div class="tile-wrapper  large-10 large-offset-1">
+                <div class="application-tile pop-out" id="1">
+                    <div data-alert class="alert-box alert round">test</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row filler show-for-large" data-filler="5"></div>
+
+    <div class="row">
+        <div class="medium-6 column">
+            <div class="tile-wrapper large-10 large-offset-1">
+                <div class="application-tile pop-out" id="4">
+                    <div>test4</div>
+                </div>
+            </div>
+        </div>
+        <div class="medium-6 column">
+            <div class="application-tile pop-out" id="3">
+                <div>test3</div>
+            </div>
+        </div>
+    </div>
+
+    {{ include('AppBundle:Partial:footer.html.twig') }}
+{% endblock %}

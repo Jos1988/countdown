@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <link href="{{ asset('css/default/newSim.css') }}" rel="stylesheet"/>
+    {% endblock %}
+
+ {% block body %}
+     {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'appTitle' : 'countdown'}) }}
+     <div class="row">
+         <div class="large-12 column main">
+             <div class="foreground">
+                 <div class="large-6 medium-8 small-10 large-offset-3 medium-offset-2 small-offset-1 text-center">
+                     <h3>{{ title }}</h3>
+
+                     {{ form_start(form) }}
+
+                     {{ form_row(form.name) }}
+                     {{ form_row(form.description) }}
+                     {% if false == firstItem %}
+                         {{ form_row(form.start, {'label' : 'start at end of:'}) }}
+                     {% else %}
+                         {{ form_row(form.start) }}
+                     {% endif %}
+                     {{ form_row(form.end) }}
+
+                     <div class="small-12">
+                         <div class="button-group small-4 small-offset-8">
+                             <button type="submit" value="save" class="button primary">save</button>
+                             <a class="button secondary"
+                                href={{ path("countdown_schedule", {'project' : project.id}) }}>cancel</a>
+                         </div>
+                     </div>
+                     {{ form_end(form, {'render_rest': false}) }}
+
+                 </div>
+             </div>
+         </div>
+     </div>
+ {% endblock %}
