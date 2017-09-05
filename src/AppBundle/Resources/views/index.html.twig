@@ -10,14 +10,17 @@
     {% endblock %}
 
  {% block body %}
-     {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'appTitle' : 'countdown'}) }}
+     {% if menuStatus is not defined %}
+         {% set menuStatus = 'closed' %}
+     {% endif %}
+
+     {{ include('AppBundle:Partial:overhead.html.twig', {'homepage' : 'true', 'appTitle' : 'countdown', 'menuStatus' : menuStatus}) }}
+
      <div class="row">
          <div class="large-12 column main">
              <div class="foreground">
                  <div class="small-10 small-offset-1">
-
                      <h2>Projects</h2>
-
                      <table class="table hover">
                          <thead>
                          <tr>

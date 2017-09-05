@@ -40,7 +40,7 @@
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a class="button" href="{{ path('fos_user_security_logout') }}">logout</a>
                             {% if homepage is defined and homepage != 'true' %}
-                                <a class="button" href="{{ path('homepage') }}"><</a>
+                                <a class="button" href="{{ path('countdown_index') }}"><</a>
                             {% endif %}
                             <a class="button offcanvas-trigger" id="menu-button" data-open="navigation-menu">
                                 <div class="hamburger">
