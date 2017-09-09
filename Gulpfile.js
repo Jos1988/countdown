@@ -19,23 +19,6 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./web/css'));
 });
 
-gulp.task('new', function () {
-    gulp.src('./src/AppBundle/Resources/sass/new/*.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(minify({
-            minify: true,
-            collapseWhitespace: true,
-            conservativeCollapse: true,
-            minifyJS: false,
-            minifyCSS: true,
-            getKeptComment: function (content, filePath) {
-                var m = content.match(/\/\*![\s\S]*?\*\//img);
-                return m && m.join('\n') + '\n' || '';
-            }
-        }))
-        .pipe(gulp.dest('./web/css'));
-});
-
 gulp.task('js', function () {
     return gulp.src('./src/AppBundle/Resources/js/*.js').pipe(minify({
         minify: false,
