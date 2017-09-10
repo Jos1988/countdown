@@ -194,7 +194,6 @@ class ProjectController extends Controller
         $project = $projectRepository->create();
         $project->setDate(new \DateTime());
         $project->setUser($this->getUser());
-        $title = 'New Project';
 
         $userOptions = $this->getUserOptions();
         $form = $this->createForm(
@@ -218,7 +217,7 @@ class ProjectController extends Controller
 
         return $this->render(
             '@App/Form/createOrEdit.html.twig',
-            ['form' => $form->createView(), 'title' => $title]
+            ['form' => $form->createView(), 'title' => 'New Project']
         );
     }
 
