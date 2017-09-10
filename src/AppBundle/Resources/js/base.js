@@ -3,16 +3,11 @@ $(document).foundation();
 $(document).ready(function () {
     console.log(Foundation.MediaQuery.current);
 
-    sizeAppTiles(false);
-    positionAppTitles();
     createFillerRow();
     makeBackgroundFillScreen();
-    showNavMenu();
-    setSlogan();
+    // showNavMenu();
+    // setSlogan();
     prepareforms();
-
-    //Slide in home box
-    MotionUI.animateIn($('#home-box'), 'slide-in-down');
 
     $('#background').attr('data-mediaQuery', Foundation.MediaQuery.current);
 
@@ -35,23 +30,13 @@ $(window).resize(function () {
         mediaTransition = true;
     }
 
-    sizeAppTiles(mediaTransition);
-    positionAppTitles();
     makeBackgroundFillScreen();
-    setSlogan();
+    // setSlogan();
 });
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////// Control //////////////////////////////
 ////////////////////////////////////////////////////////////////
-
-//Open nav menu if requested.
-function showNavMenu() {
-    var status = $('#navigation-menu').attr('data-status');
-    if ('open' === status) {
-        $('#navigation-menu').foundation('open');
-    }
-}
 
 ////////////////////////////////////////////////////////////////
 ///////////////////// general styling //////////////////////////
@@ -90,13 +75,13 @@ function makeBackgroundFillScreen() {
 }
 
 ///////////////////// header styling //////////////////////////
-function setSlogan() {
-    var homeboxHeight = $('#home-box').outerHeight();
-    var sloganHeight = $('.slogan-wrapper > h1').height();
-    var sloganWrapper = $('.slogan-wrapper')
-    sloganWrapper.height(homeboxHeight);
-    sloganWrapper.css('padding-top', (homeboxHeight - sloganHeight) / 2 + 'px');
-}
+// function setSlogan() {
+//     var homeboxHeight = $('#home-box').outerHeight();
+//     var sloganHeight = $('.slogan-wrapper > h1').height();
+//     var sloganWrapper = $('.slogan-wrapper')
+//     sloganWrapper.height(homeboxHeight);
+//     sloganWrapper.css('padding-top', (homeboxHeight - sloganHeight) / 2 + 'px');
+// }
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////// form ////////////////////////////////

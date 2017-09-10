@@ -1,54 +1,33 @@
-{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="dropdown-pane" id="example-dropdown" data-dropdown data-auto-focus="true">
-        <div class="row">
-            {{ include('AppBundle:Security:loginForm.html.twig') }}
+{#note: Not required, user always logged in, keep code for demo page in future.#}
+{#{% if not is_granted('IS_AUTHENTICATED_FULLY') %}#}
+    {#<div class="dropdown-pane" id="example-dropdown" data-dropdown data-auto-focus="true">#}
+        {#<div class="row">#}
+            {#{{ include('AppBundle:Security:loginForm.html.twig') }}#}
+        {#</div>#}
+    {#</div>#}
+{#{% endif %}#}
+
+<div id="header" class="row">
+    <div class= "hide-for-small-only medium-8 large-9 column slogan-wrapper text-center">
+        <div class="slogan align-middle">
+            <h1>Countdown</h1>
         </div>
     </div>
-{% endif %}
-
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    {% if menuStatus is not defined %}
-        {% set menuStatus = 'closed' %}
-    {% endif %}
-    {{ include('AppBundle:Partial:nav-menu.html.twig', {'menuStatus' : menuStatus}) }}
-{% endif %}
-
-<div class="row">
-    <div class="small-6 medium-8 large-9 column slogan text-center">
-        <div class="slogan-wrapper align-middle">
-            <h1>{% if appTitle is defined %}{{ appTitle }} {% else %}My Prototypes{% endif %}</h1>
-        </div>
-    </div>
-    <div class="small-6 medium-4 large-3 column text-right">
+    <div class="small-12 medium-4 large-3 column text-right">
         <div class="callout primary" id="home-box">
             <div class="row">
-                <div class="large-2 show-for-large column">
-                    <div class="step fi-torso size-36"></div>
-                    {% if app.user.username is defined %}
-                        <h6>{{ app.user.username }}</h6>
-                    {% endif %}
-                </div>
-                <div class="small-12 large-10 column">
+                <div class="small-6 show-for-small-only column text-center"><h1>Countdown</h1></div>
+                <div class="small-6 medium-12 text-center column">
                     <div class="button-group">
                         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a class="button" href="{{ path('fos_user_security_login') }}">Login</a>
-                            <a class="dropdown button arrow-only" id="no-button-webclass" type="button"
-                               data-toggle="example-dropdown">
-                                <span class="show-for-sr">Show menu</span>
+                        {% else %}
+                            <a class="button fa fa-home" href="{{ path('countdown_index') }}">
+                                {% if app.user.username is defined %}
+                                    {{ app.user.username }}
+                                {% endif %}
                             </a>
-                        {% endif %}
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <a class="button" href="{{ path('fos_user_security_logout') }}">logout</a>
-                            {% if homepage is defined and homepage != 'true' %}
-                                <a class="button" href="{{ path('countdown_index') }}"><</a>
-                            {% endif %}
-                            <a class="button offcanvas-trigger" id="menu-button" data-open="navigation-menu">
-                                <div class="hamburger">
-                                    <span class="line"></span>
-                                    <span class="line"></span>
-                                    <span class="line"></span>
-                                </div>
-                            </a>
                         {% endif %}
                     </div>
                 </div>
