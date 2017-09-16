@@ -16,7 +16,7 @@ class UserFixtures extends Fixture
             'password' => 'apollo010',
             'roles' => ['ROLE_ADMIN'],
         ],
-        'user' => [
+        'User' => [
             'username' => 'User',
             'email' => 'user@test.com',
             'password' => 'apollo010',
@@ -33,7 +33,8 @@ class UserFixtures extends Fixture
             $user = $userManager->createUser();
             $user->setUsername($userData['username'])
                 ->setEmail($userData['email'])
-                ->setPlainPassword('password');
+                ->setPlainPassword($userData['password'])
+                ->setEnabled(true);
 
             foreach ($userData['roles'] as $role) : $user->addRole($role); endforeach;
 
