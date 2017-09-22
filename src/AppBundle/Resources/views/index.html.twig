@@ -6,7 +6,6 @@
 
     {% block stylesheets %}
         {{ parent() }}
-        <link rel="stylesheet" href="{{ asset('css/countdown.css') }}"/>
     {% endblock %}
 
  {% block body %}
@@ -27,7 +26,8 @@
                              <th>Title</th>
                              <th>Description</th>
                              <th>Date</th>
-                             <th>User</th>
+                             {% if is_granted('ROLE_ADMIN') %}
+                                 <th>User</th>{% endif %}
                              <th></th>
                          </tr>
                          </thead>
@@ -43,32 +43,45 @@
                                  <td>
                                      {{ project.date|date("m/d/Y") }}
                                  </td>
-                                 <td>
-                                     {% if project.user.username is defined %}
-                                         {{ project.user.username }}
-                                     {% else %}
-                                         <span class="callout alert">Warning: no user set!</span>
-                                     {% endif %}
-                                 </td>
+                                 {% if is_granted('ROLE_ADMIN') %}
+                                     <td>
+                                         {% if project.user.username is defined %}
+                                             {{ project.user.username }}
+                                         {% else %}
+                                             -
+                                         {% endif %}
+                                     </td>
+                                 {% endif %}
                                  <td>
                                      <div class="button-group">
                                          <a class="button success"
                                             href="{{ path('countdown_view', {'project' : project.id}) }}">
                                              View
                                          </a>
-                                         <a class="button primary"
-                                            href="{{ path('countdown_schedule', {'project' : project.id}) }}">
-                                             Schedule
-                                         </a>
-                                         <a class="button primary modal-form"
-                                            data-form="{{ path('countdown_project_edit', {'project' : project.id}) }}"
-                                            data-modal="edit-project">
-                                             Edit
-                                         </a>
                                          <a type="button" class="button delete-button alert" data-open="confirm-delete"
                                             data-href="{{ path('countdown_delete', {'project' : project.id}) }}">
                                              Delete
                                          </a>
+                                         <a class="dropdown button arrow-only" data-toggle="sub-menu{{ project.id }}">
+                                             <span class="show-for-sr">Show menu</span>
+                                         </a>
+                                         <div id="sub-menu{{ project.id }}" class="dropdown-pane tiny button-pane" data-dropdown>
+                                             <ul class="menu vertical">
+                                                 <li>
+                                                     <a class="button primary"
+                                                        href="{{ path('countdown_schedule', {'project' : project.id}) }}">
+                                                         Schedule
+                                                     </a>
+                                                 </li>
+                                                 <li>
+                                                     <a class="button primary modal-form"
+                                                        data-form="{{ path('countdown_project_edit', {'project' : project.id}) }}"
+                                                        data-modal="edit-project">
+                                                         Edit
+                                                     </a>
+                                                 </li>
+                                             </ul>
+                                         </div>
                                      </div>
                                  </td>
                              </tr>
