@@ -20,7 +20,7 @@
              <div class="foreground">
                  <div class="small-10 small-offset-1">
                      <h2>Projects</h2>
-                     <table class="table hover">
+                     <table class="table hovern stack">
                          <thead>
                          <tr>
                              <th>Title</th>
@@ -65,7 +65,8 @@
                                          <a class="dropdown button arrow-only" data-toggle="sub-menu{{ project.id }}">
                                              <span class="show-for-sr">Show menu</span>
                                          </a>
-                                         <div id="sub-menu{{ project.id }}" class="dropdown-pane tiny button-pane" data-dropdown>
+                                         <div id="sub-menu{{ project.id }}" class="dropdown-pane tiny button-pane"
+                                              data-dropdown>
                                              <ul class="menu vertical">
                                                  <li>
                                                      <a class="button primary"
@@ -88,9 +89,13 @@
                          {% endfor %}
                          </tbody>
                      </table>
-                     <a class="button primary large" href="{{ path('countdown_project_create') }}">
-                         Create new Project
-                     </a>
+                     <div class="row">
+                         <div class="column small-12 medium-6 large-4 small-centered text-center">
+                             <a class="button primary large" href="{{ path('countdown_project_create') }}">
+                                 Create new Project
+                             </a>
+                         </div>
+                     </div>
                  </div>
              </div>
          </div>

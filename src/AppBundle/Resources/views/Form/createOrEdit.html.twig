@@ -10,31 +10,31 @@
      <div class="row">
          <div class="large-12 column main">
              <div class="foreground">
-                 <div class="large-6 medium-8 small-10 large-offset-3 medium-offset-2 small-offset-1 text-center">
+                 <div class="large-8 medium-10 small-12 large-offset-2 medium-offset-1 text-center">
                      <h3>{{ title }}</h3>
 
                      {{ form_start(form) }}
                      <div class="row">
-                         <div class="small-12 medium-3 text-center medium-text-left column">
-                             {{ form_label(form.title) }}
+                         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+                             {{ form_label(form.title, null, {'label_attr'  : {'class' : 'middle'}}) }}
                          </div>
-                         <div class="small-12 medium-9 column">
+                         <div class="small-12 medium-9 large-10 column">
                              {{ form_widget(form.title) }}
                          </div>
                      </div>
 
                      <div class="row">
-                         <div class="small-12 medium-3 text-center medium-text-left column">
-                             {{ form_label(form.description) }}
+                         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+                             {{ form_label(form.description, null, {'label_attr'  : {'class' : 'middle'}}) }}
                          </div>
-                         <div class="small-12 medium-9 column">
+                         <div class="small-12 medium-9 large-10 column">
                              {{ form_widget(form.description) }}
                          </div>
                      </div>
 
                      <div class="row">
-                         <div class="small-12 medium-3 text-center medium-text-left column">
-                             {{ form_label(form.date.date) }}
+                         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+                             {{ form_label(form.date.date, null, {'label_attr'  : {'class' : 'middle'}}) }}
                          </div>
                          <div class="small-12 medium-3 column">
                              {{ form_widget(form.date.date.day) }}
@@ -42,13 +42,13 @@
                          <div class="small-12 medium-3 column">
                              {{ form_widget(form.date.date.month) }}
                          </div>
-                         <div class="small-12 medium-3 column">
+                         <div class="small-12 medium-3 column end">
                              {{ form_widget(form.date.date.year) }}
                          </div>
                      </div>
                      <div class="row">
-                         <div class="small-12 medium-3 text-center medium-text-left column">
-                             {{ form_label(form.date.time) }}
+                         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+                             {{ form_label(form.date.time, null, {'label_attr'  : {'class' : 'middle'}}) }}
                          </div>
                          <div class="small-12 medium-3 column">
                              {{ form_widget(form.date.time.hour) }}
