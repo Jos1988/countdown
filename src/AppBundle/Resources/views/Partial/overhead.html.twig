@@ -27,6 +27,9 @@
                                     {{ app.user.username }}
                                 {% endif %}
                             </a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="button fa fa-wrench" href="{{ path('user_management') }}"></a>
+                            {% endif %}
                             <a class="button" href="{{ path('fos_user_security_logout') }}">logout</a>
                         {% endif %}
                     </div>

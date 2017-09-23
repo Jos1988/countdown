@@ -13,86 +13,92 @@
      {{ include('AppBundle:Partial:overhead.html.twig') }}
 
      <div class="row">
-         <div class="small-12 large-10 large-offset-1 foreground column main">
-             <h4>Users</h4>
-             <div class="table-scroll">
-                 <table class="hover">
-                     <thead>
-                     <tr>
-                         <th>Username</th>
-                         <th>Email</th>
-                         <th>Role</th>
-                         <th>Enabled</th>
-                         <th></th>
-                     </tr>
-                     </thead>
-                     <tbody>
-                     {% for user in users %}
+         <div class="large-12 column main">
+             <div class="foreground">
+                 <div class="small-10 small-offset-1">
+                     <h2>Users</h2>
+                     <table class="table hover stack">
+                         <thead>
                          <tr>
-                             <td class="text-left">
-                                 {{ user.username }}
-                             </td>
-                             <td class="text-left">
-                                 {{ user.email }}
-                             </td>
-                             <td class="text-left">
-                                 <ul class="menu vertical">
-                                     {% for role in user.roles %}
-                                         <li>{{ roles[role] }}</li>
-                                     {% endfor %}
-                                 </ul>
-                             </td>
-                             <td class="text-left">
-                                 {% if user.isEnabled == true %}
-                                     Yes
-                                 {% else %}
-                                     No
-                                 {% endif %}
-                             </td>
-                             <td class="text-right">
-                                 <div class="btn-group" role="group" aria-label="...">
+                             <th>Username</th>
+                             <th>Email</th>
+                             <th>Role</th>
+                             <th>Enabled</th>
+                             <th></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         {% for user in users %}
+                             <tr>
+                                 <td class="text-left">
+                                     {{ user.username }}
+                                 </td>
+                                 <td class="text-left">
+                                     {{ user.email }}
+                                 </td>
+                                 <td class="text-left">
+                                     <ul class="menu vertical">
+                                         {% for role in user.roles %}
+                                             <li>{{ roles[role] }}</li>
+                                         {% endfor %}
+                                     </ul>
+                                 </td>
+                                 <td class="text-left">
                                      {% if user.isEnabled == true %}
-                                         <a type="button" class="btn btn-default button"
-                                            href="{{ path('user_switch_active', {'user' : user.id}) }}">
-                                             Disable
-                                         </a>
-                                     {% elseif user.isEnabled == false %}
-                                         <a type="button" class="btn btn-default button"
-                                            href="{{ path('user_switch_active', {'user' : user.id}) }}">
-                                             Enable
-                                         </a>
+                                         Yes
+                                     {% else %}
+                                         No
                                      {% endif %}
-                                     <a type="button" class="btn btn-default button"
-                                        href="{{ path('set_user', {'user' : user.id}) }}">
-                                         Edit
-                                     </a>
-                                     <a type="button" class="btn btn-danger button alert"
-                                        data-open="delete-modal-{{ user.id }}">
-                                         Delete
-                                     </a>
-                                 </div>
-                                 <div id="delete-modal-{{ user.id }}" class="reveal" data-reveal>
-                                     <h3 class="align-center">Delete user "{{ user.username }}" ?</h3>
-                                     <div>
-                                         {#<button type="button" class="close-button btn btn-default button" data-close >no</button>#}
-                                         <button class="close-button" data-close aria-label="Close modal" type="button">
-                                             <span aria-hidden="true">&times;</span>
-                                         </button>
+                                 </td>
+                                 <td class="text-right">
+                                     <div class="button-group" aria-label="...">
+                                         {% if user.isEnabled == true %}
+                                             <a type="button" class="btn btn-default button"
+                                                href="{{ path('user_switch_active', {'user' : user.id}) }}">
+                                                 Disable
+                                             </a>
+                                         {% elseif user.isEnabled == false %}
+                                             <a type="button" class="btn btn-default button"
+                                                href="{{ path('user_switch_active', {'user' : user.id}) }}">
+                                                 Enable
+                                             </a>
+                                         {% endif %}
+                                         <a type="button" class="btn btn-default button"
+                                            href="{{ path('set_user', {'user' : user.id}) }}">
+                                             Edit
+                                         </a>
                                          <a type="button" class="btn btn-danger button alert"
-                                            href="{{ path('delete_user', {'user' : user.id}) }}">
+                                            data-open="delete-modal-{{ user.id }}">
                                              Delete
                                          </a>
                                      </div>
-                                 </div>
-                             </td>
-                         </tr>
-                     {% endfor %}
-                     </tbody>
-                 </table>
+                                     <div id="delete-modal-{{ user.id }}" class="reveal" data-reveal>
+                                         <h3 class="align-center">Delete user "{{ user.username }}" ?</h3>
+                                         <div>
+                                             <button class="close-button" data-close aria-label="Close modal"
+                                                     type="button">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                             <a type="button" class="btn btn-danger button alert"
+                                                href="{{ path('delete_user', {'user' : user.id}) }}">
+                                                 Delete
+                                             </a>
+                                         </div>
+                                     </div>
+                                 </td>
+                             </tr>
+                         {% endfor %}
+                         </tbody>
+                     </table>
+                     <div class="row">
+                         <div class="column small-12 medium-6 large-4 small-centered text-center">
+                             <a class="button primary large" href="{{ path('set_user') }}">
+                                 Create User
+                             </a>
+                         </div>
+                     </div>
+                 </div>
              </div>
-             <a class="btn btn-lg btn-primary button" type="button" href="{{ path('set_user') }}">
-                 Create User
-             </a>
          </div>
      </div>
  {% endblock %}

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,12 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class SecurityController
+ *
  * @package AppBundle\Controller
  */
 class SecurityController extends Controller
 {
     /**
-     * @Route("/user/management", name="user_management")
+     * @Route("/admin", name="user_management")
      *
      * @param Request $request
      *
@@ -45,7 +47,7 @@ class SecurityController extends Controller
      * @param User    $user
      *
      * @return Response
-     * @Route("/user/set/{user}", name="set_user")  //todo: move actions to admin area.
+     * @Route("/admin/set/{user}", name="set_user")  //todo: move actions to admin area.
      *
      */
     public function setUser(Request $request, User $user = null)
@@ -89,7 +91,7 @@ class SecurityController extends Controller
      * Switch active state.
      *
      * @param User $user
-     * @route("/user/active/switch/{user}", name="user_switch_active")
+     * @route("/admin/active/switch/{user}", name="user_switch_active")
      *
      * @return Response
      */
@@ -107,7 +109,7 @@ class SecurityController extends Controller
      * Delete user.
      *
      * @param User $user
-     * @Route("/user/delete/{user}", name="delete_user")
+     * @Route("/admin/delete/{user}", name="delete_user")
      *
      * @return Response
      */
