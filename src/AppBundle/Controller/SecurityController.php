@@ -53,21 +53,23 @@ class SecurityController extends Controller
     public function setUser(Request $request, User $user = null)
     {
         $userManager = $this->get('fos_user.user_manager');
-        $title = 'Edit User.';
+        $title = 'Edit User';
         if (null === $user) {
             $user = $userManager->createUser();
             $user->setRoles(['ROLE_USER']);
-            $title = 'Create User.';
+            $title = 'Create User';
         }
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var User $user */
             $user = $form->getData();
-            $plainPassword = $user->getPassword();
-            $user->setPlainPassword($plainPassword);
+            if (null !== $form->get('password')->getData()) {
+                $user->setPlainPassword($form->get('password')->getData());
+            }
+
             $userManager->updateUser($user);
 
             return new Response(

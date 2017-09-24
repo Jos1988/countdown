@@ -23,9 +23,8 @@ class User extends BaseUser
     protected $id;
 
     public static $roletypes = [
-        'ROLE_USER' => 'User',
-        'ROLE_ADMIN' => 'Admin',
-        'ROLE_COUNTDOWN_USER' => 'Countdown User',
+        'user' => 'ROLE_USER',
+        'admin' => 'ROLE_ADMIN',
     ];
 
     /**

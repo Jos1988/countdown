@@ -8,7 +8,7 @@
 $main-drop: 1em;
 
 ////////////////////////////////////////////////////////////////////////
-/////////////////////// misc. special elements /////////////////////////
+////////////////////// misc. recurring elements ////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
 html, body {
@@ -32,83 +32,6 @@ html, body {
   background-color: $foreground-color;
   padding: 1em;
 }
-
-//.thumbnail > img {
-//  width: 100%;
-//}
-
-//header
-#header > .column {
-    margin-top: 1rem;
-    height: 4.5rem;
-}
-
-#header {
-  .button-group, h1 {
-    margin-bottom: 0;
-  }
-}
-
-//slogan in header
-.slogan-wrapper {
-  margin-top: 1em;
-  .slogan {
-    background-color: $foreground-color;
-    height: 100%;
-  }
-}
-
-//home box
-#home-box {
-  background-color: $foreground-color;
-  border: none;
-}
-
-//.pop-out {
-//  transition: all .2s ease-in-out;
-//}
-
-//.pop-out:hover {
-//  transform: scale(1.1);
-//}
-
-//.application-tile {
-//  background-color: $foreground-color;
-//  text-align: center;
-//}
-
-//.no-button-webclass {
-//  -webkit-appearance: none !important;
-//}
-
-//.responsive-blog-footer {
-//  background: $background-color;
-//  padding: 1rem 2rem;
-//  color: darken($background-text, 25%);
-//  margin-top: 2em;
-
-//  h4 {
-//    @media screen and (max-width: 39.9375em) {
-//      font-size: 1.5rem;
-//    }
-//  }
-
-//  p {
-//    color: $background-text;
-//  }
-
-//  .about-section, .tag-section {
-//    margin-bottom: 0.5rem;
-//
-//    a {
-//      color: $highlight;
-//    }
-//  }
-//}
-
-////////////////////////////////////////////////////////////////////////
-////////////////////// misc. recurring elements ////////////////////////
-////////////////////////////////////////////////////////////////////////
 
 // Close button
 .close-button {
@@ -185,5 +108,88 @@ html, body {
 //    height: 102%;
 //  }
 //}
+
+////////////////////////////////////////////////////////////////////////
+/////////////////////// misc. special elements /////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+//.thumbnail > img {
+//  width: 100%;
+//}
+
+//header
+#header > .column {
+  margin-top: 1rem;
+  height: 4.5rem;
+}
+
+#header {
+  .button-group, h1 {
+    margin-bottom: 0;
+  }
+}
+
+//slogan in header
+.slogan-wrapper {
+  margin-top: 1em;
+  .slogan {
+    background-color: $foreground-color;
+    height: 100%;
+  }
+}
+
+//home box
+#home-box {
+  background-color: $foreground-color;
+  border: none;
+}
+
+// User form roles inputs.
+.roles.menu {
+  margin-bottom: 1rem;
+}
+
+//.pop-out {
+//  transition: all .2s ease-in-out;
+//}
+
+//.pop-out:hover {
+//  transform: scale(1.1);
+//}
+
+//.application-tile {
+//  background-color: $foreground-color;
+//  text-align: center;
+//}
+
+//.no-button-webclass {
+//  -webkit-appearance: none !important;
+//}
+
+//.responsive-blog-footer {
+//  background: $background-color;
+//  padding: 1rem 2rem;
+//  color: darken($background-text, 25%);
+//  margin-top: 2em;
+
+//  h4 {
+//    @media screen and (max-width: 39.9375em) {
+//      font-size: 1.5rem;
+//    }
+//  }
+
+//  p {
+//    color: $background-text;
+//  }
+
+//  .about-section, .tag-section {
+//    margin-bottom: 0.5rem;
+//
+//    a {
+//      color: $highlight;
+//    }
+//  }
+//}
+
 
 //////////////////////////////////////////////////////////////////////////////////

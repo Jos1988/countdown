@@ -39,7 +39,11 @@
                                  <td class="text-left">
                                      <ul class="menu vertical">
                                          {% for role in user.roles %}
-                                             <li>{{ roles[role] }}</li>
+                                             {% for name, role2 in roles %}
+                                                 {% if role2 == role %}
+                                                     <li>{{ name }}</li>
+                                                 {% endif %}
+                                             {% endfor %}
                                          {% endfor %}
                                      </ul>
                                  </td>

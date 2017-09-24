@@ -9,43 +9,45 @@
 
  {% block body %}
      <div class="row">
-         <div class="small-10 small-offset-1 medium-8 medium-offset-2 large-6 large-offset-3 foreground column main">
-             <div class="large-10 large-offset-1">
-                 <h4>{{ title }}</h4>
-                 {{ form_start(form) }}
-                 <div class="row">
-                     {{ form_row(form.username) }}
-                 </div>
-                 <div class="row">
-                     {{ form_row(form.password) }}
-                 </div>
-                 <div class="row">
-                     {{ form_row(form.email) }}
-                 </div>
-                 <div class="row">
-                     <div class="small-1 column">
-                         {{ form_widget(form.enabled) }}
+         <div class="small-12 medium-8 medium-offset-2 large-6 large-offset-3 foreground column main">
+             <div class="row">
+                 <div class="medium-10 medium-offset-1">
+                     {{ form_start(form) }}
+                     <div class="row">
+                         <h4 class="">{{ title }}</h4>
                      </div>
-                     <div class="small-11 column">
-                         {{ form_label(form.enabled) }}
+                     <div class="row">
+                         {{ form_row(form.username) }}
                      </div>
-                 </div>
+                     <div class="row">
+                         {{ form_row(form.password) }}
+                     </div>
+                     <div class="row">
+                         {{ form_row(form.email) }}
+                     </div>
+                     <div class="row">
+                         {{ form_row(form.enabled) }}
+                     </div>
 
-                 <div class="row">
-                     {{ form_label(form.roles) }}
-                     <ul class="roles menu vertical"
-                         data-prototype="{{ include('AppBundle:Security/FormView:userFormPrototype.html.twig', {'roles' : roles})|e('html_attr') }}">
-                         {% for role in form.roles %}
-                             <li class="row">{{ form_row(role) }}</li>
-                         {% endfor %}
-                     </ul>
-                 </div>
+                     <div class="row">
+                         {{ form_label(form.roles) }}
+                         <ul class="roles menu vertical"
+                             data-prototype="{{ include('AppBundle:Security/FormView:userFormPrototype.html.twig', {'roles' : roles})|e('html_attr') }}">
+                             {% for role in form.roles %}
+                                 <li class="row">{{ form_row(role) }}</li>
+                             {% endfor %}
+                         </ul>
+                     </div>
 
-                 <div class="row">
-                     <a type="button" value="cancel" class="button" href={{ path("user_management") }}>cancel</a>
-                     <button type="submit" value="save" class="button">save</button>
+                     <div class="row">
+                         <div class="button-group text-right">
+                             <button type="submit" value="save" class="button primary">save</button>
+                             <a type="button" value="cancel" class="button secondary"
+                                href={{ path("user_management") }}>cancel</a>
+                         </div>
+                     </div>
+                     {{ form_end(form) }}
                  </div>
-                 {{ form_end(form) }}
              </div>
          </div>
      </div>

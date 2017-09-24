@@ -1,8 +1,8 @@
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addRoleLink = $('<a href="#" class="add_role_link">Add a role</a>');
-var $newLinkLi = $('<div></div>').append($addRoleLink);
+var $addRoleLink = $('<a href="#" type="button" class="button primary add_role_link">Add a role</a>');
+var $newLinkLi = $('<div class="text-right"></div>').append($addRoleLink);
 
 $(document).ready(function () {
     //Code for adding roles to user in user form
@@ -33,9 +33,9 @@ function addRoleForm($collectionHolder, $newLinkLi) {
 
 //Adds deletion link for role.
 function addRoleFormDeleteLink($roleFormLi) {
-    var $removeFormA = $('<div class="small-2 column"><div class="button alert">delete</div></div>');
+    var $removeFormA = $('<div class="small-3 column text-right"><div class="button alert">delete</div></div>');
     $roleFormLi.append($removeFormA);
-    $roleFormLi.find('div').first().addClass('small-10 column');
+    $roleFormLi.find('div').first().addClass('small-9 column');
 
     $removeFormA.on('click', function (e) {
         e.preventDefault();
