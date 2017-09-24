@@ -73,16 +73,26 @@
                                          </a>
                                      </div>
                                      <div id="delete-modal-{{ user.id }}" class="reveal" data-reveal>
-                                         <h3 class="align-center">Delete user "{{ user.username }}" ?</h3>
+
+                                         <h4 class="align-center text-center">Delete user: '{{ user.username }}'?</h4>
                                          <div>
                                              <button class="close-button" data-close aria-label="Close modal"
                                                      type="button">
                                                  <span aria-hidden="true">&times;</span>
                                              </button>
-                                             <a type="button" class="btn btn-danger button alert"
-                                                href="{{ path('delete_user', {'user' : user.id}) }}">
-                                                 Delete
-                                             </a>
+                                             <div class="row">
+                                                 <div class="column small-12 text-right">
+                                                     <div class="button-group form-buttons ">
+                                                         <a type="button" class="button alert"
+                                                            href="{{ path('delete_user', {'user' : user.id}) }}">
+                                                             Delete
+                                                         </a>
+                                                         <a type="button" class="button secondary" data-close>
+                                                             Cancel
+                                                         </a>
+                                                     </div>
+                                                 </div>
+                                             </div>
                                          </div>
                                      </div>
                                  </td>
