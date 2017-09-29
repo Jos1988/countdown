@@ -7,15 +7,26 @@
 
 {% block content %}
     <div class="small-10 small-offset-1 main-view-holder" data-end-time="{{ endTime }}">
+        <div class="row">
+            <h3>{{ project.title }}</h3>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-6 column"><h6>Event</h6></div>
+            <div class="small-8 medium-4 column"><h6>Responsible</h6></div>
+            <div class="small-4 medium-2 column"><h6>Deadline</h6></div>
+        </div>
         {% for item in project.items %}
             <div class="row view-item-wrapper">
                 <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
                      data-start="{{ item.start }}">
-                    <div class="small-2 column item-start">
-                        {{ item.start }}
-                    </div>
-                    <div class="small-4 text-left column end item-name">
+                    <div class="small-12 medium-6 text-left column item-name">
                         {{ item.name }}
+                    </div>
+                    <div class="small-8 medium-4 text-left column">
+                        {{ item.owner }}
+                    </div>
+                    <div class="small-4 medium-2 column item-start">
+                        {{ item.start }}
                     </div>
                 </div>
             </div>
