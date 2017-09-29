@@ -44,6 +44,20 @@ html, body {
   border-width: 0;
 }
 
+//gutter specs
+.no-right-gutter {
+  padding-right: 0;
+}
+
+.no-left-gutter {
+  padding-left: 0;
+}
+
+.no-gutters {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 // text div
 //.text {
 //  margin-top: 0.5rem;
@@ -190,6 +204,5 @@ html, body {
 //    }
 //  }
 //}
-
 
 //////////////////////////////////////////////////////////////////////////////////

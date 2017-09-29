@@ -40,7 +40,7 @@ function newItemForm($collectionHolder, $newLinkLi) {
  * @param $addedFrom
  */
 function addItemFormDeleteLink($itemFormLi, $addedFrom) {
-    var $removeFormA = $('<div class="small-1 columns"><a class="button alert" href="#">delete</a></div>');
+    var $removeFormA = $('<div class="small-1 end columns text-right"><a class="button alert" href="#">delete</a></div>');
     if ($addedFrom) {
         $itemFormLi.find('fieldset').append($removeFormA);
     } else {

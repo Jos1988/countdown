@@ -19,9 +19,9 @@
     {%- else -%}
         {%- set vars = widget == 'text' ? { 'attr': { 'size': 1 }} : {} -%}
         <div {{ block('widget_container_attributes') }}>
-            <div class="small-6 column">{{ form_widget(form.hour, vars) }}</div>
+            <div class="small-6 column no-left-gutter">{{ form_widget(form.hour, vars) }}</div>
             {% if with_minutes %}
-                <div class="small-6 column">{{ form_widget(form.minute, vars) }}</div>
+                <div class="small-6 column no-right-gutter">{{ form_widget(form.minute, vars) }}</div>
             {% endif %}
             {% if with_seconds %}
                 <div class="small-6 column">{{ form_widget(form.second, vars) }}</div>
@@ -47,31 +47,59 @@
 
 {% block content %}
     <div class="small-10 small-offset-1 text-center">
-        <h2>{{ project.title }}:</h2>
-
+        <h2>Project schedule</h2>
+        <table class="table unstriped text-left">
+            <tr>
+                <td><b>Name: </b></td>
+                <td>{{ project.title }}</td>
+            </tr>
+            <tr>
+                <td><b>Description:</b></td>
+                <td>{{ project.description }}</td>
+            </tr>
+            <tr>
+                <td><b>Date:</b></td>
+                <td>{{ project.date|date('m-d-Y') }}</td>
+            </tr>
+            <tr>
+                <td><b>Start:</b></td>
+                <td>{{ project.date|date('H:i') }}</td>
+            </tr>
+        </table>
         {{ form_start(form) }}
-
-        <div class="row schedule-head">
-            <div class="small-2 column">Time</div>
-            <div class="small-3 column">Name</div>
-            <div class="small-3 column">Description</div>
-            <div class="small-3 column end">responsible</div>
+        <div class="row schedule-head show-for-large">
+            <div class="small-6 column">Name</div>
+            <div class="small-3 column end">Deadline</div>
         </div>
         <div class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
             {% for item in form.items %}
                 <div class="row">
                     <fieldset class="schedule-item">
-                        <div class="small-2 column start">
-                            {{ form_widget(item.start, {'attr' : {'class' : 'row'}}) }}
+                        <div class="small-12 large-6 column">
+                            {{ form_widget(item.name) }}
                         </div>
-                        <div class="small-3 column">
-                            <div>{{ form_widget(item.name) }}</div>
+                        <div class="small-12 large-3 column start">
+                            {{ form_widget(item.start) }}
                         </div>
-                        <div class="small-3 column">
-                            <div>{{ form_widget(item.description) }}</div>
+                        <div class="small-4 large-2 small-offset-2 large-offset-0 column">
+                            <div class="button-group text-right">
+                                <a class="dropdown button primary show-for-medium" type="button"
+                                   data-toggle="extra-pane-{{ item.vars.id }}"> more</a>
+                                <a class="fa fa-caret-down button primary hide-for-medium" type="button"
+                                   data-toggle="extra-pane-{{ item.vars.id }}"></a>
+                            </div>
                         </div>
-                        <div class="small-3 column end">
-                            <div>{{ form_widget(item.owner) }}</div>
+                        <div id="extra-pane-{{ item.vars.id }}" class="dropdown-pane" data-dropdown>
+                            <div class="row">
+                                <div class="small-12 column">
+                                    <div>{{ form_row(item.description, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="small-12 column end">
+                                    <div>{{ form_row(item.owner, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                </div>
+                            </div>
                         </div>
                     </fieldset>
                 </div>
