@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\User;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
 use AppBundle\Form\ScheduleType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -44,9 +44,19 @@ class ProjectController extends Controller
      */
     public function viewAction(Project $project)
     {
+        $status = 'today';
+        $projectDate = $project->getDate();
+        $now = new \DateTime();
+        if ($projectDate->format('Ymd') !== $now->format('Ymd')) {
+            $status = 'upcoming';
+            if ($projectDate > $now) {
+                $status = 'datePast';
+            }
+        }
+
         return $this->render(
             '@App/viewProject.html.twig',
-            ['project' => $project, 'endTime' => '23:59:59']
+            ['project' => $project, 'start' => $project->getDate()->format('H:i:s'), 'status' => $status]
         );
     }
 

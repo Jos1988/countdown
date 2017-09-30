@@ -127,8 +127,7 @@ class ProjectFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        // TODO: Implement load() method.
-        /** @var ProjectRepository $projectRepo */
+         /** @var ProjectRepository $projectRepo */
         $projectRepo = $this->container->get('countdown.repository.project');
         /** @var ItemRepository $itemRepo */
         $itemRepo = $this->container->get('countdown.repository.item');
@@ -153,11 +152,10 @@ class ProjectFixtures extends Fixture
                 $item->setName($itemData['name'])
                     ->setDescription($itemData['description'])
                     ->setOwner($itemData['owner'])
-                    ->setStart($time->format('H:i:s'))
+                    ->setDeadline($time->format('H:i:s'))
                     ->setProject($project);
                 
                 $time->add(new DateInterval($itemData['time']));
-                $item->setEnd($time->format('H:i:s'));
                 $manager->persist($item);
             }
         }

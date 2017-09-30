@@ -45,16 +45,9 @@ class Item
     /**
      * @var string
      *
-     * @ORM\Column(name="start", type="string", length=20)
+     * @ORM\Column(name="deadline", type="string", length=20, nullable=true)
      */
-    private $start;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="end", type="string", length=20, nullable=true)
-     */
-    private $end;
+    private $deadline;
 
     /**
      * @var Project
@@ -144,49 +137,25 @@ class Item
     }
 
     /**
-     * get Start
+     * get Deadline
      *
      * @return string
      */
-    public function getStart(): ?string
+    public function getDeadline(): string
     {
-        return $this->start;
+        return $this->deadline;
     }
 
     /**
-     * set Start
+     * set Deadline
      *
-     * @param string $start
+     * @param string $deadline
      *
      * @return Item
      */
-    public function setStart(string $start)
+    public function setDeadline(string $deadline)
     {
-        $this->start = $start;
-
-        return $this;
-    }
-
-    /**
-     * get End
-     *
-     * @return string
-     */
-    public function getEnd(): ?string
-    {
-        return $this->end;
-    }
-
-    /**
-     * set End
-     *
-     * @param string $end
-     *
-     * @return Item
-     */
-    public function setEnd(string $end)
-    {
-        $this->end = $end;
+        $this->deadline = $deadline;
 
         return $this;
     }

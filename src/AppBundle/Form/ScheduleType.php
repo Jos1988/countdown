@@ -17,7 +17,6 @@ class ScheduleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('date') //todo: add date?
             ->add(
                 'items',
                 CollectionType::class,

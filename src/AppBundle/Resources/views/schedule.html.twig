@@ -32,7 +32,7 @@
 
 {% block _schedule_items_entry_widget %}
     <div class="small-2 column start">
-        {{ form_widget(form.start, {'attr' : {'class' : 'row'}}) }}
+        {{ form_widget(form.deadline, {'attr' : {'class' : 'row'}}) }}
     </div>
     <div class="small-3 column">
         <div>{{ form_widget(form.name) }}</div>
@@ -79,7 +79,7 @@
                             {{ form_widget(item.name) }}
                         </div>
                         <div class="small-12 large-3 column start">
-                            {{ form_widget(item.start) }}
+                            {{ form_widget(item.deadline) }}
                         </div>
                         <div class="small-4 large-2 small-offset-2 large-offset-0 column">
                             <div class="button-group text-right">

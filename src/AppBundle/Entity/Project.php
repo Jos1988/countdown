@@ -49,7 +49,7 @@ class Project
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Item", mappedBy="project", cascade={"persist", "remove"})
-     * @ORM\OrderBy(value={"start"="ASC"})
+     * @ORM\OrderBy(value={"deadline"="ASC"})
      */
     private $items;
 

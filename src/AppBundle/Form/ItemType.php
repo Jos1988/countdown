@@ -19,7 +19,7 @@ class ItemType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('owner')
-            ->add('start', TimeType::class, ['input' => 'string', 'widget' => 'choice']);
+            ->add('deadline', TimeType::class, ['input' => 'string', 'widget' => 'choice']);
     }
 
     /**

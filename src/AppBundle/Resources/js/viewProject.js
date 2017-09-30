@@ -1,7 +1,20 @@
 $(document).ready(function () {
     $('.slogan-wrapper > h1').append('<span id="clock">' + $('.main-view-holder').attr('data-time') + '</span>');
     updateTime();
-    findCountdown();
+
+    var status = $('.main-view-holder').attr('data-status');
+    var start = $('.main-view-holder').attr('data-start-time');
+    if (status === 'today') {
+        findCountdown(start);
+    }
+
+    if (status === 'past') {
+        $('.view-item').each(function () {
+            $(this).addClass('completed');
+        });
+
+    }
+
 });
 
 /**
@@ -20,8 +33,10 @@ function updateTime() {
 
 /**
  * Find proper view item for count-down.
+ *
+ * @param start
  */
-function findCountdown() {
+function findCountdown(start) {
     $.ajax('/time').done(
         function (data) {
             var items = $('.view-item');
@@ -32,7 +47,7 @@ function findCountdown() {
             };
 
             $(items).each(function () {
-                checkViewItem(this, prevItem, time);
+                checkViewItem(this, prevItem, start, time);
             });
         }
     );
@@ -43,26 +58,28 @@ function findCountdown() {
  *
  * @param viewItem
  * @param prevItem
+ * @param projectStart
  * @param time
  */
-function checkViewItem(viewItem, prevItem, time) {
-    var itemStartTime = $(viewItem).attr('data-start');
-    itemStartTime = stringTimeToSeconds(itemStartTime);
-    if (itemStartTime < time) {
-        // Set view items from past as disabled.
-        if (null !== prevItem.item) {
-            prevItem.item.addClass('completed');
-        }
+function checkViewItem(viewItem, prevItem, projectStart, time) {
+    var itemDeadline = $(viewItem).attr('data-deadline');
+    itemDeadline = stringTimeToSeconds(itemDeadline);
+    if (null === prevItem.time) {
+        prevItem.time = projectStart;
+    }
 
-    } else {
-        if (prevItem.time < time) {
-            // Set startCountdown on current view-item
-            startCountdown(prevItem.item);
-        }
+    if (time < itemDeadline && time > prevItem.time) {
+        // If current time between current and previous deadline, activate viewItem.
+        startCountdown(viewItem);
+    }
+
+    if (time > itemDeadline) {
+        // Set viewItem as completed if its deadline has passed.
+        $(viewItem).addClass('completed');
     }
 
     prevItem.item = $(viewItem);
-    prevItem.time = itemStartTime;
+    prevItem.time = itemDeadline;
 }
 
 /**
@@ -76,11 +93,11 @@ function startCountdown(countDown) {
             var now = stringTimeToSeconds(data['time']);
 
             //start - nex start in seconds
-            var startTime = stringTimeToSeconds($(countDown).attr('data-start'));
-            var endTime = findEndTime(countDown);
+            var startTime = findStartTime($(countDown));
+            var endTime = stringTimeToSeconds($(countDown).attr('data-deadline'));
             var complete = (endTime - startTime);
             now = (now - startTime);
-            var progressbar = createProgressbar(countDown, now, complete);
+            var progressbar = createProgressbar($(countDown), now, complete);
             runProgressbar(progressbar, now, 1, complete, 1000);
         }
     );
@@ -117,7 +134,8 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
  *
  * @returns {*}
  */
-function createProgressbar(countDown, now, complete){
+function createProgressbar(countDown, now, complete) {
+    console.log(countDown, now, complete);
     return countDown.progressbar({
         value: now,
         max: complete,
@@ -130,22 +148,22 @@ function createProgressbar(countDown, now, complete){
 }
 
 /**
- * Find Endtime for countdown progressbar.
+ * Find startTime for countdown progressbar.
  *
  * @param countDown
  * @returns {number}
  */
-function findEndTime(countDown) {
-    var endTime = countDown.parent('.view-item-wrapper').next().find('.view-item').attr('data-start');
-    if (typeof endTime === 'undefined') {
-        return stringTimeToSeconds($('.main-view-holder').attr('data-end-time'));
+function findStartTime(countDown) {
+    var startTime = countDown.parent('.view-item-wrapper').prev().find('.view-item').attr('data-deadline');
+    if (typeof startTime === 'undefined') {
+        return stringTimeToSeconds($('.main-view-holder').attr('data-start-time'));
     } else {
-        return stringTimeToSeconds(endTime);
+        return stringTimeToSeconds(startTime);
     }
 }
 
 /**
- * turn time string 'hh:mm:ss' to seconds.
+ * Turn time string 'hh:mm:ss' to seconds.
  *
  * @param time
  * @returns {number}
