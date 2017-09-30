@@ -62,16 +62,6 @@ html, body {
   margin-bottom: 0;
 }
 
-// text div
-//.text {
-//  margin-top: 0.5rem;
-//  p {
-//    background: $foreground-color;
-//    margin: 0.2rem 0;
-//    padding: 0.5rem;
-//  }
-//}
-
 //View page
 .view-item-wrapper {
   padding: 0.25rem;
@@ -90,7 +80,7 @@ html, body {
 }
 
 .completed {
-  background-color: $secondary-color;
+  background-color: $progressColor;
 }
 
 //progressbar
@@ -99,6 +89,7 @@ html, body {
 
   .count-down-progress {
     height: 102%;
+    background-color: $progressColor;
   }
 }
 

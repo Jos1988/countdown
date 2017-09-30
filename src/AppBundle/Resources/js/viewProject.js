@@ -135,7 +135,6 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
  * @returns {*}
  */
 function createProgressbar(countDown, now, complete) {
-    console.log(countDown, now, complete);
     return countDown.progressbar({
         value: now,
         max: complete,
