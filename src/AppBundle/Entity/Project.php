@@ -6,12 +6,14 @@ use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Customer
  *
  * @ORM\Table(name="Project")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
+ * @UniqueEntity("hash")
  */
 class Project
 {
@@ -37,6 +39,20 @@ class Project
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="hash", type="string", length=25, nullable=true, unique=true)
+     */
+    private $hash;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="allow_public_view", type="boolean", options={"default" : false})
+     */
+    private $allowPublicView = false;
 
     /**
      * @var DateTime
@@ -123,6 +139,54 @@ class Project
     public function setDescription(string $description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * get Hash
+     *
+     * @return string
+     */
+    public function getHash()
+    {
+        return $this->hash;
+    }
+
+    /**
+     * set Hash
+     *
+     * @param string $hash
+     *
+     * @return Project
+     */
+    public function setHash(string $hash)
+    {
+        $this->hash = $hash;
+
+        return $this;
+    }
+
+    /**
+     * is AllowPublicView
+     *
+     * @return bool
+     */
+    public function isAllowPublicView(): bool
+    {
+        return $this->allowPublicView;
+    }
+
+    /**
+     * set AllowPublicView
+     *
+     * @param bool $allowPublicView
+     *
+     * @return Project
+     */
+    public function setAllowPublicView(bool $allowPublicView)
+    {
+        $this->allowPublicView = $allowPublicView;
 
         return $this;
     }

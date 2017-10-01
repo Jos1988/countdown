@@ -25,6 +25,11 @@
 .invalid-field {
   color: darken($alert, 25%);
   margin-bottom: 1rem;
+  ul {
+    li {
+      list-style: none;
+    }
+  }
 }
 
 select {

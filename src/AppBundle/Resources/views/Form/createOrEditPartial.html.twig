@@ -18,7 +18,7 @@
 
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
-            {{ form_label(form.title, null, {'label_attr'  : {'class' : 'middle'}}) }}
+            {{ form_label(form.title) }}
         </div>
         <div class="small-12 medium-9 large-9 has-error column">
             {{ form_widget(form.title) }}
@@ -30,7 +30,7 @@
 
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
-            {{ form_label(form.description, null, {'label_attr'  : {'class' : 'middle'}}) }}
+            {{ form_label(form.description) }}
         </div>
         <div class="small-12 medium-9 large-9 has-error column">
             {{ form_widget(form.description) }}
@@ -42,7 +42,7 @@
 
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
-            {{ form_label(form.date.date, null, {'label_attr'  : {'class' : 'middle'}}) }}
+            {{ form_label(form.date.date) }}
         </div>
         <div class="small-12 medium-3 has-error column">
             {{ form_widget(form.date.date.day) }}
@@ -57,9 +57,10 @@
             {{ form_errors(form.date.date) }}
         </div>
     </div>
+
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
-            {{ form_label(form.date.time, null, {'label_attr'  : {'class' : 'middle'}}) }}
+            {{ form_label(form.date.time) }}
         </div>
         <div class="small-12 medium-3 has-error column">
             {{ form_widget(form.date.time.hour) }}
@@ -69,6 +70,30 @@
         </div>
         <div class="small-12 medium-9 large-10 medium-offset-3 text-right invalid-field column">
             {{ form_errors(form.date.time) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+            {{ form_label(form.hash, 'public label') }}
+        </div>
+        <div class="small-12 medium-9 large-9 has-error column">
+            {{ form_widget(form.hash) }}
+        </div>
+        <div class="small-12 medium-9 large-9 medium-offset-3 large-offset-2 end text-right invalid-field column">
+            {{ form_errors(form.hash) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 medium-3 large-2 text-center medium-text-right column">
+            {{ form_label(form.allowPublicView) }}
+        </div>
+        <div class="small-12 medium-9 large-9 has-error text-left column">
+            {{ form_widget(form.allowPublicView) }}
+        </div>
+        <div class="small-12 medium-9 large-9  medium-offset-3 large-offset-2 end text-right invalid-field column">
+            {{ form_errors(form.allowPublicView) }}
         </div>
     </div>
 

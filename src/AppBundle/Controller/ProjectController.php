@@ -7,6 +7,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
 use AppBundle\Form\ScheduleType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +45,37 @@ class ProjectController extends Controller
      */
     public function viewAction(Project $project)
     {
+        return $this->view($project);
+    }
+
+    /**
+     * Show view, for public use.
+     *
+     * @Route("/show/{hash}", name="show")
+     * @ParamConverter("project", class="AppBundle:Project", options={"hash" = "hash"})
+     *
+     * @param Project $project
+     *
+     * @return Response
+     */
+    public function publicViewAction(Project $project)
+    {
+        if (false === $project->isAllowPublicView()) {
+            $this->denyAccessUnlessGranted('ROLE_USER', null, 'Please login to view project schedule');
+        }
+
+        return $this->view($project);
+    }
+
+    /**
+     * Generate view project view.
+     *
+     * @param $project
+     *
+     * @return Response
+     */
+    private function view(Project $project)
+    {
         $status = 'today';
         $projectDate = $project->getDate();
         $now = new \DateTime();
@@ -55,7 +87,7 @@ class ProjectController extends Controller
         }
 
         return $this->render(
-            '@App/viewProject.html.twig',
+            '@App/showProject.html.twig',
             ['project' => $project, 'start' => $project->getDate()->format('H:i:s'), 'status' => $status]
         );
     }

@@ -81,6 +81,11 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
+sensio_framework_extra:
+    request:
+        converters: true
+        auto_convert: true
+
 fos_user:
     db_driver: orm
     firewall_name: main

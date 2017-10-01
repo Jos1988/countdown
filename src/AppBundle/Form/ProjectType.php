@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use function Sodium\add;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,7 +18,9 @@ class ProjectType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('date');
+            ->add('date')
+            ->add('allowPublicView')
+            ->add('hash');
     }
 
     /**
