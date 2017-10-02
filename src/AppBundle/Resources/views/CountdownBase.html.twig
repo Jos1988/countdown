@@ -4,11 +4,6 @@
     Countdown
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/countdown.css') }}"/>
-{% endblock %}
-
 {% block body %}
     {{ include('AppBundle:Partial:overhead.html.twig') }}
     <div class="row">
