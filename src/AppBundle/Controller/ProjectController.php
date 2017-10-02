@@ -80,9 +80,9 @@ class ProjectController extends Controller
         $projectDate = $project->getDate();
         $now = new \DateTime();
         if ($projectDate->format('Ymd') !== $now->format('Ymd')) {
-            $status = 'upcoming';
+            $status = 'past';
             if ($projectDate > $now) {
-                $status = 'datePast';
+                $status = 'upcoming';
             }
         }
 
