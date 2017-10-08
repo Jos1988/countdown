@@ -51,8 +51,8 @@ class ProjectController extends Controller
     /**
      * Show view, for public use.
      *
-     * @Route("/show/{hash}", name="show")
-     * @ParamConverter("project", class="AppBundle:Project", options={"hash" = "hash"})
+     * @Route("/project/{identifier}", name="show")
+     * @ParamConverter("project", class="AppBundle:Project", options={"identifier" = "identifier"})
      *
      * @param Project $project
      *

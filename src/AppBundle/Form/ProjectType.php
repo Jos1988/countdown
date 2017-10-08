@@ -20,7 +20,7 @@ class ProjectType extends AbstractType
             ->add('description')
             ->add('date')
             ->add('allowPublicView')
-            ->add('hash');
+            ->add('identifier');
     }
 
     /**

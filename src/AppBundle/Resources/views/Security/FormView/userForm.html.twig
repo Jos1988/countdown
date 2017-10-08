@@ -13,23 +13,67 @@
              <div class="row">
                  <div class="medium-10 medium-offset-1">
                      {{ form_start(form) }}
+                     {% if form.vars.errors is not empty %}
+                         <div class="row">
+                             <div class="small-12 column callout small alert" data-closable>
+                                 {{ form_errors(form) }}
+                                 <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                         </div>
+                     {% endif %}
+
                      <div class="row">
-                         <h4 class="">{{ title }}</h4>
+                         <h4 class="small-12 column">{{ title }}</h4>
                      </div>
                      <div class="row">
-                         {{ form_row(form.username) }}
-                     </div>
-                     <div class="row">
-                         {{ form_row(form.password) }}
-                     </div>
-                     <div class="row">
-                         {{ form_row(form.email) }}
-                     </div>
-                     <div class="row">
-                         {{ form_row(form.enabled) }}
+                         <div class="small-12 column">
+                             {{ form_label(form.username) }}
+                         </div>
+                         <div class="small-12 has-error column">
+                             {{ form_widget(form.username) }}
+                         </div>
+                         <div class="small-12 text-right invalid-field column">
+                             {{ form_errors(form.username) }}
+                         </div>
                      </div>
 
                      <div class="row">
+                         <div class="small-12 has-error column">
+                             {{ form_widget(form.password) }}
+                         </div>
+                         <div class="small-12 text-right invalid-field column">
+                             {{ form_errors(form.password) }}
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="small-12 column">
+                             {{ form_label(form.email) }}
+                         </div>
+                         <div class="small-12 has-error column">
+                             {{ form_widget(form.email) }}
+                         </div>
+                         <div class="small-12 text-right invalid-field column">
+                             {{ form_errors(form.email) }}
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="small-12 column">
+                             {{ form_label(form.enabled) }}
+                         </div>
+                         <div class="small-12 has-error column">
+                             {{ form_widget(form.enabled) }}
+                         </div>
+                         <div class="small-12 text-left invalid-field column">
+                             {{ form_errors(form.enabled) }}
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         {#todo: Fix validation messages on roles subform.#}
                          {{ form_label(form.roles) }}
                          <ul class="roles menu vertical"
                              data-prototype="{{ include('AppBundle:Security/FormView:userFormPrototype.html.twig', {'roles' : roles})|e('html_attr') }}">

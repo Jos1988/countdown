@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Customer
@@ -24,6 +25,7 @@ class Item
     /**
      * @var string
      *
+     * @Assert\Length(max=255, maxMessage="Please use a shorter name.")
      * @ORM\Column(name="name", type="string", unique=false)
      */
     private $name;

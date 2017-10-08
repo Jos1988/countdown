@@ -1,13 +1,11 @@
 {% form_theme form '@App/Form/fieldTemplates.html.twig' %}
 <div class="large-10 medium-10 small-12 large-offset-1 medium-offset-1 small-offset-0 text-center">
 
-    <h3>{{ title }}</h3>
-
     {{ form_start(form) }}
 
     {% if form.vars.errors is not empty %}
         <div class="row">
-            <div class="alert callout" data-closable>
+            <div class="small-12 column callout small alert" data-closable>
                 {{ form_errors(form) }}
                 <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
                     <span aria-hidden="true">&times;</span>
@@ -16,14 +14,16 @@
         </div>
     {% endif %}
 
+    <h3>{{ title }}</h3>
+
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
             {{ form_label(form.title) }}
         </div>
-        <div class="small-12 medium-9 large-9 has-error column">
+        <div class="small-12 medium-9 has-error column">
             {{ form_widget(form.title) }}
         </div>
-        <div class="small-12 medium-9 large-9 medium-offset-3 text-right invalid-field column">
+        <div class="small-12 medium-9 medium-offset-3 large-offset-2 end text-right invalid-field column">
             {{ form_errors(form.title) }}
         </div>
     </div>
@@ -32,10 +32,10 @@
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
             {{ form_label(form.description) }}
         </div>
-        <div class="small-12 medium-9 large-9 has-error column">
+        <div class="small-12 medium-9 has-error column">
             {{ form_widget(form.description) }}
         </div>
-        <div class="small-12 medium-9 large-9 medium-offset-3 text-right invalid-field column">
+        <div class="small-12 medium-9 medium-offset-3 large-offset-2 end text-right invalid-field column">
             {{ form_errors(form.description) }}
         </div>
     </div>
@@ -75,13 +75,13 @@
 
     <div class="row">
         <div class="small-12 medium-3 large-2 text-center medium-text-right column">
-            {{ form_label(form.hash, 'public label') }}
+            {{ form_label(form.identifier, 'public label') }}
         </div>
         <div class="small-12 medium-9 large-9 has-error column">
-            {{ form_widget(form.hash) }}
+            {{ form_widget(form.identifier) }}
         </div>
         <div class="small-12 medium-9 large-9 medium-offset-3 large-offset-2 end text-right invalid-field column">
-            {{ form_errors(form.hash) }}
+            {{ form_errors(form.identifier) }}
         </div>
     </div>
 
@@ -92,7 +92,7 @@
         <div class="small-12 medium-9 large-9 has-error text-left column">
             {{ form_widget(form.allowPublicView) }}
         </div>
-        <div class="small-12 medium-9 large-9  medium-offset-3 large-offset-2 end text-right invalid-field column">
+        <div class="small-12 medium-9 large-9  medium-offset-3 large-offset-2 end text-left invalid-field column">
             {{ form_errors(form.allowPublicView) }}
         </div>
     </div>

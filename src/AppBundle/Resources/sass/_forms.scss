@@ -18,7 +18,7 @@
 //  }
 //}
 
-.has-error > input {
+.has-error > input, select, textarea, [type=text], [type=password] {
   margin-bottom: 0;
 }
 

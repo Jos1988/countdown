@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
@@ -13,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="Project")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProjectRepository")
- * @UniqueEntity("hash")
+ * @UniqueEntity("identifier")
  */
 class Project
 {
@@ -43,9 +42,9 @@ class Project
     /**
      * @var string
      *
-     * @ORM\Column(name="hash", type="string", length=25, nullable=true, unique=true)
+     * @ORM\Column(name="identifier", type="string", length=25, nullable=true, unique=true)
      */
-    private $hash;
+    private $identifier;
 
     /**
      * @var boolean
@@ -144,25 +143,25 @@ class Project
     }
 
     /**
-     * get Hash
+     * get Identifier
      *
      * @return string
      */
-    public function getHash()
+    public function getIdentifier()
     {
-        return $this->hash;
+        return $this->identifier;
     }
 
     /**
-     * set Hash
+     * set Identifier
      *
-     * @param string $hash
+     * @param string $identifier
      *
      * @return Project
      */
-    public function setHash(string $hash)
+    public function setIdentifier(string $identifier)
     {
-        $this->hash = $hash;
+        $this->identifier = $identifier;
 
         return $this;
     }
