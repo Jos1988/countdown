@@ -17,8 +17,14 @@ html, body {
 
 // background
 #background {
-  height: 100%;
-  background: #38a1ad url("/images/new-york-city.jpg") no-repeat fixed center;
+  @include breakpoint(medium up) {
+    background: #38a1ad url("/images/new-york-city.jpg") no-repeat fixed center;
+  }
+
+  @include breakpoint(small only) {
+    background-color: #38a1ad;
+  }
+
   background-size: cover;
 }
 
