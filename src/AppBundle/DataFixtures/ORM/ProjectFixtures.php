@@ -16,7 +16,7 @@ class ProjectFixtures extends Fixture
         0 => [
             'title' => 'Feyenoord - SBV Excelsior',
             'description' => 'Thuiswedstrijd in de Kuip tegen SBV Excelsior',
-            'hash' => 'abc',
+            'ident' => 'abc',
             'user' => 'Jos',
             'items' => [
                 0 => [
@@ -72,7 +72,7 @@ class ProjectFixtures extends Fixture
         1 => [
             'title' => 'Feyenoord - AZ',
             'description' => 'Thuiswedstrijd in de Kuip tegen AZ',
-            'hash' => 'def',
+            'ident' => 'def',
             'user' => 'User',
             'items' => [
                 0 => [
@@ -143,7 +143,7 @@ class ProjectFixtures extends Fixture
             $user = $userManager->findUserByUsername($data['user']);
             $project->setTitle($data['title'])
                 ->setDescription($data['description'])
-                ->setHash($data['hash'])
+                ->setIdentifier($data['ident'])
                 ->setAllowPublicView(true)
                 ->setUser($user)
                 ->setDate($time);

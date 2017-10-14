@@ -6,11 +6,13 @@
 {% endblock %}
 
 {% block content %}
-    <div class="small-10 small-offset-1 main-view-holder" data-start-time="{{ start }}" data-status="{{ status }}">
+    <div class="small-12 medium-10 medium-offset-1 main-view-holder" data-start-time="{{ start }}" data-status="{{ status }}">
         <div class="row">
-            <h3>{{ project.title }}</h3>
+            <div class="small-12 small-text-center">
+                <h3>{{ project.title }}</h3>
+            </div>
         </div>
-        <div class="row">
+        <div class="row show-for-medium">
             <div class="small-12 medium-6 column"><h6 class="no-bottom-margin">Event</h6></div>
             <div class="small-8 medium-4 column"><h6 class="no-bottom-margin">Responsible</h6></div>
             <div class="small-4 medium-2 column"><h6 class="no-bottom-margin">Deadline</h6></div>
@@ -19,18 +21,18 @@
             <div class="row view-item-wrapper">
                 <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
                      data-deadline="{{ item.deadline }}">
-                    <div class="small-12 medium-6 text-left column item-name">
+                    <div class="small-8 medium-6 text-left column item-name">
                         {{ item.name }}
                     </div>
-                    <div class="small-8 medium-4 text-left column">
+                    <div class="small-8 medium-4 text-left column show-for-medium">
                         {% if item.owner != '' %}
                             {{ item.owner }}
                         {% else %}
                             -
                         {% endif %}
                     </div>
-                    <div class="small-4 medium-2 column end item-start">
-                        {{ item.deadline }}
+                    <div class="small-4 medium-2 column small-text-right end item-start">
+                        {{ item.deadline|trim('00', 'right')|trim(':', 'right') }}
                     </div>
                 </div>
             </div>

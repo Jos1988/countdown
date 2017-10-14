@@ -18,11 +18,12 @@ html, body {
 // background
 #background {
   @include breakpoint(medium up) {
-    background: #38a1ad url("/images/new-york-city.jpg") no-repeat fixed center;
+    background: $background-color url("/images/new-york-city.jpg") no-repeat fixed center;
+    //#38a1ad
   }
 
   @include breakpoint(small only) {
-    background-color: #38a1ad;
+    background-color: $background-color;
   }
 
   background-size: cover;
@@ -31,6 +32,10 @@ html, body {
 // main element
 .main {
   margin-top: $main-drop;
+  @include breakpoint(small only) {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
 // foreground elements.
@@ -75,13 +80,22 @@ html, body {
 
 .view-item {
   background-color: $white;
-  font-size: 1.5rem;
-  height: 2.5rem;
-  padding: 0;
-  .item-start{
+  @include breakpoint(medium up) {
+    font-size: 1.5rem;
   }
 
-  .item-name{
+  @include breakpoint(small only) {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.2rem;
+  }
+
+  height: 2.5rem;
+  padding: 0;
+  .item-start {
+  }
+
+  .item-name {
   }
 }
 
@@ -107,6 +121,11 @@ html, body {
 #header > .column {
   margin-top: 1rem;
   height: 4.5rem;
+  @include breakpoint(small only) {
+    margin-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 #header {
