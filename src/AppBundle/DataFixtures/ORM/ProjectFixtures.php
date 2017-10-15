@@ -18,6 +18,7 @@ class ProjectFixtures extends Fixture
             'description' => 'Thuiswedstrijd in de Kuip tegen SBV Excelsior',
             'ident' => 'abc',
             'user' => 'Jos',
+            'start' => 'PT30M',
             'items' => [
                 0 => [
                     'name' => 'Schouw',
@@ -74,6 +75,7 @@ class ProjectFixtures extends Fixture
             'description' => 'Thuiswedstrijd in de Kuip tegen AZ',
             'ident' => 'def',
             'user' => 'User',
+            'start' => 'PT30M',
             'items' => [
                 0 => [
                     'name' => 'Schouw',
@@ -138,7 +140,8 @@ class ProjectFixtures extends Fixture
 
         foreach ($this::$DATA as $data) {
             $time = new DateTime('now');
-
+            $time->sub(new DateInterval('PT1H'));
+            $start = clone $time;
             $project = $projectRepo->create();
             $user = $userManager->findUserByUsername($data['user']);
             $project->setTitle($data['title'])
@@ -146,10 +149,8 @@ class ProjectFixtures extends Fixture
                 ->setIdentifier($data['ident'])
                 ->setAllowPublicView(true)
                 ->setUser($user)
-                ->setDate($time);
+                ->setDate($start->sub(new DateInterval($data['start'])));
             $manager->persist($project);
-
-            $time->sub(new DateInterval('PT1H'));
 
             foreach ($data['items'] as $itemData) {
                 $item = $itemRepo->create();
@@ -162,6 +163,8 @@ class ProjectFixtures extends Fixture
                 $time->add(new DateInterval($itemData['time']));
                 $manager->persist($item);
             }
+
+            $manager->persist($project);
         }
 
         $manager->flush();

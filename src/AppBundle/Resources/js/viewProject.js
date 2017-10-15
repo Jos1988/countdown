@@ -63,6 +63,7 @@ function findCountdown(start) {
  */
 function checkViewItem(viewItem, prevItem, projectStart, time) {
     var itemDeadline = $(viewItem).attr('data-deadline');
+    projectStart = stringTimeToSeconds(projectStart);
     itemDeadline = stringTimeToSeconds(itemDeadline);
     if (null === prevItem.time) {
         prevItem.time = projectStart;
