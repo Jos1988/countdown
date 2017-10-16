@@ -19,8 +19,6 @@ app/Resources/views/default/
 app/cache/prod/doctrine/
 app/cache/prod/pools/X6kjbWlkPe/
 app/logs/
-web/css/
-web/js/
 var/cache/
 web/PDF/
 node_modules/
