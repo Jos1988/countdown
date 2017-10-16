@@ -12,8 +12,8 @@ security:
     firewalls:
         main:
             pattern: ^/
-            host: countdown.dev
             form_login:
+                login_path: /login
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
             logout:       true
@@ -21,6 +21,7 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/show, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/project, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/time, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/, role: ROLE_USER }

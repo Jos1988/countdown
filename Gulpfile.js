@@ -21,7 +21,7 @@ gulp.task('sass', function () {
 
 gulp.task('js', function () {
     return gulp.src('./src/AppBundle/Resources/js/*.js').pipe(minify({
-        minify: false,
+        minify: true,
         collapseWhitespace: true,
         conservativeCollapse: true,
         minifyJS: false,

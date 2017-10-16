@@ -63,9 +63,6 @@ function findCountdown(start) {
  */
 function checkViewItem(viewItem, prevItem, projectStart, time) {
     var itemDeadline = $(viewItem).attr('data-deadline');
-    console.log(itemDeadline);
-    console.log(projectStart);
-    console.log(time);
     projectStart = stringTimeToSeconds(projectStart);
     itemDeadline = stringTimeToSeconds(itemDeadline);
     if (null === prevItem.time) {
@@ -74,12 +71,10 @@ function checkViewItem(viewItem, prevItem, projectStart, time) {
 
     if (time < itemDeadline && time > prevItem.time) {
         // If current time between current and previous deadline, activate viewItem.
-        console.log('start item');
         startCountdown(viewItem);
     }
 
     if (time > itemDeadline) {
-        console.log('completed this item.');
         // Set viewItem as completed if its deadline has passed.
         $(viewItem).addClass('completed');
     }

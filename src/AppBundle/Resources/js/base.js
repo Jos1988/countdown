@@ -1,8 +1,6 @@
 $(document).foundation();
 
 $(document).ready(function () {
-    console.log(Foundation.MediaQuery.current);
-
     createFillerRow();
     makeBackgroundFillScreen();
     // showNavMenu();
