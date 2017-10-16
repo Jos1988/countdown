@@ -85,7 +85,7 @@ class Project
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
@@ -105,7 +105,7 @@ class Project
     /**
      * @return string
      */
-    public function getTitle(): ?string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -125,7 +125,7 @@ class Project
     /**
      * @return string
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -171,7 +171,7 @@ class Project
      *
      * @return bool
      */
-    public function isAllowPublicView(): bool
+    public function isAllowPublicView()
     {
         return $this->allowPublicView;
     }
@@ -193,7 +193,7 @@ class Project
     /**
      * @return DateTime
      */
-    public function getDate(): ?DateTime
+    public function getDate()
     {
         return $this->date;
     }
@@ -262,7 +262,7 @@ class Project
     /**
      * @return User
      */
-    public function getUser(): ?User
+    public function getUser()
     {
         return $this->user;
     }
@@ -282,7 +282,7 @@ class Project
     /**
      * @return boolean
      */
-    public function isDeleted(): ?bool
+    public function isDeleted()
     {
         return $this->deleted;
     }

@@ -61,7 +61,7 @@ class Item
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -81,7 +81,7 @@ class Item
     /**
      * @return string
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -101,7 +101,7 @@ class Item
     /**
      * @return string
      */
-    public function getDescription(): ?string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -121,7 +121,7 @@ class Item
     /**
      * @return string
      */
-    public function getOwner(): ?string
+    public function getOwner()
     {
         return $this->owner;
     }
@@ -143,7 +143,7 @@ class Item
      *
      * @return string
      */
-    public function getDeadline(): string
+    public function getDeadline()
     {
         return $this->deadline;
     }
@@ -165,7 +165,7 @@ class Item
     /**
      * @return Project
      */
-    public function getProject(): ?Project
+    public function getProject()
     {
         return $this->project;
     }
