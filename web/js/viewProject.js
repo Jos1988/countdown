@@ -119,7 +119,8 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
         if (now > complete) {
             clearInterval(counter);
             progressbar.progressbar("destroy");
-            findCountdown();
+            start = $('.main-view-holder').attr('data-start-time');
+            findCountdown(start);
         } else {
             progressbar.progressbar({value: now});
         }

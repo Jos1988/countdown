@@ -3,9 +3,8 @@ $(document).ready(function () {
     updateTime();
 
     var status = $('.main-view-holder').attr('data-status');
-    var start = $('.main-view-holder').attr('data-start-time');
     if (status === 'today') {
-        findCountdown(start);
+        findCountdown( $('.main-view-holder').attr('data-start-time'));
     }
 
     if (status === 'past') {
@@ -119,7 +118,7 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
         if (now > complete) {
             clearInterval(counter);
             progressbar.progressbar("destroy");
-            findCountdown();
+            findCountdown($('.main-view-holder').attr('data-start-time'));
         } else {
             progressbar.progressbar({value: now});
         }
