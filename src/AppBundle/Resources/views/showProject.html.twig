@@ -6,7 +6,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="small-12 medium-10 medium-offset-1 main-view-holder" data-start-time="{{ start }}" data-status="{{ status }}">
+    <div class="small-12 medium-10 medium-offset-1 main-view-holder" data-start-time="{{ start }}"
+         data-status="{{ status }}">
         <div class="row">
             <div class="small-12 small-text-center">
                 <h3>{{ project.title }}</h3>
@@ -37,6 +38,14 @@
                 </div>
             </div>
         {% endfor %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="row">
+                <div class="small-12 medium-4 medium-offset-4 large-2 large-offset-5 text-right column">
+                    <a class="small-12 column button primary"
+                       href="{{ path('countdown_schedule', {'project' : project.id}) }}">Schedule</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
