@@ -145,6 +145,8 @@ class ProjectController extends Controller
             $this->get('countdown.repository.project')->persist($project, false);
             $entityManager->flush();
 
+            $this->addFlash('primary', 'Saved changes.');
+
             return $this->redirectToRoute('countdown_schedule', ['project' => $project->getId()]);
         }
 

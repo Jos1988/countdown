@@ -49,10 +49,18 @@ html, body {
   font-size: 1.6em;
 }
 
-//Pane for button group dropdown
+//Pane for button group dropdown.
 .button-pane {
   padding: 0;
   border-width: 0;
+}
+
+//Callout
+.callout.primary {
+  background-color: lighten($primary-color, 60%);
+  .close-button {
+    color: $black;
+  }
 }
 
 //Gutters
@@ -99,11 +107,15 @@ html, body {
   }
 }
 
+////////////////////////////////////////////////////////////////////////
+/////////////////////// misc. special elements /////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+//progressbar
 .completed {
   background-color: $progressColor;
 }
 
-//progressbar
 .count-down-bar {
   border: 0;
 
@@ -112,10 +124,6 @@ html, body {
     background-color: $activeProgressColor;
   }
 }
-
-////////////////////////////////////////////////////////////////////////
-/////////////////////// misc. special elements /////////////////////////
-////////////////////////////////////////////////////////////////////////
 
 //header
 #header > .column {

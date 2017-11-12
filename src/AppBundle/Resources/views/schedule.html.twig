@@ -81,6 +81,16 @@
 
 {% block content %}
     <div class="small-10 small-offset-1 text-center">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="small-12 column callout small {{ label }}" data-closable>
+                    {{ message }}
+                    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
         {{ form_start(form) }}
         <div class="row">
             {% if 0 != form.vars.errors.count %}
