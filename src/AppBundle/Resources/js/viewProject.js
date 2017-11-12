@@ -11,8 +11,11 @@ $(document).ready(function () {
         $('.view-item').each(function () {
             $(this).addClass('completed');
         });
-
     }
+
+    $('.view-item-wrapper').click(function() {
+        console.log('click');
+    });
 
 });
 

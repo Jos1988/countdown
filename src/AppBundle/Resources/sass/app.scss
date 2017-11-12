@@ -81,9 +81,13 @@ html, body {
   margin-bottom: 0;
 }
 
-//View page
+////////////////////////////////////////////////////////////////////////
+/////////////////////// misc. special elements /////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+//// project view
 .view-item-wrapper {
-  padding: 0.25rem;
+  margin-top: 0.25rem;
 }
 
 .view-item {
@@ -100,28 +104,43 @@ html, body {
 
   height: 2.5rem;
   padding: 0;
-  .item-start {
-  }
-
-  .item-name {
-  }
 }
-
-////////////////////////////////////////////////////////////////////////
-/////////////////////// misc. special elements /////////////////////////
-////////////////////////////////////////////////////////////////////////
 
 //progressbar
 .completed {
   background-color: $progressColor;
 }
 
-.count-down-bar {
-  border: 0;
+.view-item-wrapper {
+  .view-item.count-down-bar {
+    border: none;
+  }
+}
 
+.count-down-bar {
   .count-down-progress {
     height: 102%;
     background-color: $activeProgressColor;
+  }
+}
+
+//item data-dropdown
+.item-data {
+  background: $white;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-top: solid lightgray 1px;
+
+  .text {
+    width: 95%;
+    @include breakpoint(small only) {
+      width: 90%;
+    }
+    float: right;
+  }
+
+  .icon {
+    width: 5%;
   }
 }
 

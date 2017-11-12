@@ -3,17 +3,19 @@ $(document).ready(function () {
     updateTime();
 
     var status = $('.main-view-holder').attr('data-status');
-    var start = $('.main-view-holder').attr('data-start-time');
     if (status === 'today') {
-        findCountdown(start);
+        findCountdown( $('.main-view-holder').attr('data-start-time'));
     }
 
     if (status === 'past') {
         $('.view-item').each(function () {
             $(this).addClass('completed');
         });
-
     }
+
+    $('.view-item-wrapper').click(function() {
+        console.log('click');
+    });
 
 });
 
@@ -119,8 +121,7 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
         if (now > complete) {
             clearInterval(counter);
             progressbar.progressbar("destroy");
-            start = $('.main-view-holder').attr('data-start-time');
-            findCountdown(start);
+            findCountdown($('.main-view-holder').attr('data-start-time'));
         } else {
             progressbar.progressbar({value: now});
         }

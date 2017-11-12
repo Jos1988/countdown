@@ -19,7 +19,7 @@
             <div class="small-4 medium-2 column"><h6 class="no-bottom-margin">Deadline</h6></div>
         </div>
         {% for item in project.items %}
-            <div class="row view-item-wrapper">
+            <div class="row view-item-wrapper" data-toggle="item-{{ item.id }}-data">
                 <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
                      data-deadline="{{ item.deadline }}">
                     <div class="small-8 medium-6 text-left column item-name">
@@ -37,8 +37,23 @@
                     </div>
                 </div>
             </div>
+            <div id="item-{{ item.id }}-data" class="row item-data" hidden data-toggler data-animate="fade-in fade-out">
+                <div class="small-12 column">
+                    {% if null != item.owner %}
+                        <div class="icon fa fa-user show-for-small-only"></div>
+                        <div class="text show-for-small-only">{{ item.owner }}</div>
+                    {% endif %}
+                    {% if null != item.description %}
+                        <div class="icon fa fa-info-circle"></div>
+                        <div class="text">{{ item.description }}</div>
+                    {% else %}
+                        <div class="text">no description</div>
+                    {% endif %}
+                </div>
+            </div>
         {% endfor %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <br>
             <div class="row">
                 <div class="small-12 medium-4 medium-offset-4 large-2 large-offset-5 text-right column">
                     <a class="small-12 column button primary"
