@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var status = $('.main-view-holder').attr('data-status');
     if (status === 'today') {
-        findCountdown( $('.main-view-holder').attr('data-start-time'));
+        findCountdown($('.main-view-holder').attr('data-start-time'));
     }
 
     if (status === 'past') {
@@ -12,11 +12,6 @@ $(document).ready(function () {
             $(this).addClass('completed');
         });
     }
-
-    $('.view-item-wrapper').click(function() {
-        console.log('click');
-    });
-
 });
 
 /**
@@ -101,9 +96,32 @@ function startCountdown(countDown) {
             var complete = (endTime - startTime);
             now = (now - startTime);
             var progressbar = createProgressbar($(countDown), now, complete);
+            toggleItemData(countDown, true, false);
             runProgressbar(progressbar, now, 1, complete, 1000);
         }
     );
+}
+
+/**
+ * Toggle data field corresponding to view Item.
+ *
+ * @param viewItem
+ */
+function toggleItemData(viewItem, openOnly, closeOnly) {
+    var itemData = $(viewItem).parent('.view-item-wrapper').next();
+    var currentStatus = $(itemData).is(':visible');
+    var id = itemData[0].id;
+    if (openOnly && false === currentStatus) {
+        $('#' + id).foundation('toggle');
+    }
+
+    if (closeOnly && true === currentStatus) {
+        $('#' + id).foundation('toggle');
+    }
+
+    if (false === closeOnly && false === openOnly) {
+        $('#' + id).foundation('toggle');
+    }
 }
 
 /**
@@ -120,6 +138,7 @@ function runProgressbar(progressbar, now, increment, complete, interval) {
         now = now + increment;
         if (now > complete) {
             clearInterval(counter);
+            toggleItemData(progressbar, false, true);
             progressbar.progressbar("destroy");
             findCountdown($('.main-view-holder').attr('data-start-time'));
         } else {
@@ -156,7 +175,7 @@ function createProgressbar(countDown, now, complete) {
  * @returns {number}
  */
 function findStartTime(countDown) {
-    var startTime = countDown.parent('.view-item-wrapper').prev().find('.view-item').attr('data-deadline');
+    var startTime = countDown.parent('.view-item-wrapper').prev().prev().find('.view-item').attr('data-deadline');
     if (typeof startTime === 'undefined') {
         return stringTimeToSeconds($('.main-view-holder').attr('data-start-time'));
     } else {
