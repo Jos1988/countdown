@@ -2,6 +2,8 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Action;
+use AppBundle\Entity\Item;
 use AppBundle\Repository\ItemRepository;
 use AppBundle\Repository\ProjectRepository;
 use DateInterval;
@@ -131,7 +133,7 @@ class ProjectFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-         /** @var ProjectRepository $projectRepo */
+        /** @var ProjectRepository $projectRepo */
         $projectRepo = $this->container->get('countdown.repository.project');
         /** @var ItemRepository $itemRepo */
         $itemRepo = $this->container->get('countdown.repository.item');
@@ -153,14 +155,16 @@ class ProjectFixtures extends Fixture
             $manager->persist($project);
 
             foreach ($data['items'] as $itemData) {
-                $item = $itemRepo->create();
-                $item->setName($itemData['name'])
-                    ->setDescription($itemData['description'])
-                    ->setOwner($itemData['owner'])
-                    ->setDeadline($time->format('H:i:s'))
-                    ->setProject($project);
-                
-                $time->add(new DateInterval($itemData['time']));
+                $item = $this->createItem($itemRepo, $time, $itemData);
+                $item->setProject($project);
+
+                for ($c = rand(0, 10); $c > 0; $c--) {
+                    $action = $this->createRandomAction();
+                    $action->setItem($item);
+                    $manager->persist($action);
+                    $item->addAction($action);
+                }
+
                 $manager->persist($item);
             }
 
@@ -168,5 +172,64 @@ class ProjectFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    /**
+     * Create Item
+     *
+     * @param ItemRepository $itemRepository
+     * @param DateTime       $time
+     * @param array          $itemData
+     *
+     * @return Item
+     */
+    private function createItem(ItemRepository $itemRepository, DateTime $time, array $itemData)
+    {
+        $item = $itemRepository->create();
+        $item->setName($itemData['name'])
+            ->setDescription($itemData['description'])
+            ->setOwner($itemData['owner'])
+            ->setDeadline($time->format('H:i:s'));
+
+        $time->add(new DateInterval($itemData['time']));
+
+        return $item;
+    }
+
+    /**
+     * Creates a random action
+     *
+     * @return Action
+     */
+    private function createRandomAction()
+    {
+        $action = new Action();
+        $description = $this->getRandomWord(rand(5, 10)).
+            $this->getRandomWord(rand(5, 10)).
+            $this->getRandomWord(rand(5, 10)).
+            $this->getRandomWord(rand(5, 10)).
+            '.';
+
+        $action->setName($this->getRandomWord())
+            ->setDescription($description);
+
+        return $action;
+    }
+
+    /**
+     * get Random word.
+     *
+     * Credits: https://stackoverflow.com/users/311744/benjamin-crouzier
+     *
+     * @param int $len
+     *
+     * @return bool|string
+     */
+    function getRandomWord($len = 5)
+    {
+        $word = array_merge(range('a', 'z'), range('A', 'Z'));
+        shuffle($word);
+
+        return substr(implode($word), 0, $len);
     }
 }

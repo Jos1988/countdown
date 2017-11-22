@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -57,6 +58,21 @@ class Item
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="items", cascade={"persist", "remove"})
      */
     private $project;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist"})
+     */
+    private $actions;
+
+    /**
+     * Item constructor.
+     */
+    public function __construct()
+    {
+        $this->actions = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -181,4 +197,61 @@ class Item
 
         return $this;
     }
+
+    /**
+     * get Actions
+     *
+     * @return ArrayCollection
+     */
+    public function getActions(): ArrayCollection
+    {
+        return $this->actions;
+    }
+
+    /**
+     * set Actions
+     *
+     * @param ArrayCollection $actions
+     *
+     * @return Item
+     */
+    public function setActions(ArrayCollection $actions)
+    {
+        $this->actions = $actions;
+
+        return $this;
+    }
+
+    /**
+     * Add action to item.
+     *
+     * @param Action $action
+     *
+     * @return Item
+     */
+    public function addAction(Action $action)
+    {
+        if (!$this->actions->contains($action)) {
+            $this->actions->add($action);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove action from item.
+     *
+     * @param Action $action
+     *
+     * @return $this
+     */
+    public function removeAction(Action $action)
+    {
+        if ($this->actions->contains($action)) {
+            $this->actions->remove($action);
+        }
+
+        return $this;
+    }
+
 }
