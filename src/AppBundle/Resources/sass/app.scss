@@ -63,6 +63,10 @@ html, body {
   }
 }
 
+.manual-label {
+  font-weight: bold;
+}
+
 //Gutters
 .no-right-gutter {
   padding-right: 0;
@@ -178,5 +182,10 @@ html, body {
 
 // User form roles inputs.
 .roles.menu {
+  margin-bottom: 1rem;
+}
+
+//// Schedule view
+.action-form {
   margin-bottom: 1rem;
 }

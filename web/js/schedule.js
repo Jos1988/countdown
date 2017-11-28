@@ -14,7 +14,30 @@ $(document).ready(function () {
         e.preventDefault();
         newItemForm($collectionHolder, $newLinkLi);
     });
+
+    $('.actions-holder').each(function(){
+        var newActionButton = $('<div class="add_action button primary small">Add Action</div>');
+        var actionHolder = $(this);
+        actionHolder.append(newActionButton);
+        var count = actionHolder.find(':input').length;
+        $(this).data('index', count);
+        newActionButton.on('click' ,function(e){
+            e.preventDefault();
+            addActionForm(actionHolder, newActionButton);
+        });
+    });
 });
+
+function addActionForm(actionHolder, newActionButton) {
+    var prototype = actionHolder.data('prototype');
+    var index = actionHolder.data('index');
+    var newActionForm = prototype;
+
+    newActionForm = newActionForm.replace('/__name__/g', index);
+    actionHolder.data('index', index++);
+
+    newActionButton.before(newActionForm);
+}
 
 /**
  * Create new Item form.

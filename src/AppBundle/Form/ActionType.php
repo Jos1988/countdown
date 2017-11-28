@@ -3,12 +3,10 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemType extends AbstractType
+class ActionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,17 +16,7 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
-            ->add('owner')
-            ->add('deadline', TimeType::class, ['input' => 'string', 'widget' => 'choice'])
-            ->add('actions',
-                CollectionType::class,
-                [
-                    'entry_type'  => ActionType::class,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                ]
-            );
+            ->add('description');
     }
 
     /**
@@ -38,7 +26,7 @@ class ItemType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'AppBundle\Entity\Item',
+                'data_class' => 'AppBundle\Entity\Action',
             ]
         );
     }

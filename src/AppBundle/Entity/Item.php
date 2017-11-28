@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -60,9 +61,9 @@ class Item
     private $project;
 
     /**
-     * @var ArrayCollection
+     * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist", "remove"})
      */
     private $actions;
 
@@ -201,9 +202,9 @@ class Item
     /**
      * get Actions
      *
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getActions(): ArrayCollection
+    public function getActions(): Collection
     {
         return $this->actions;
     }
@@ -211,11 +212,11 @@ class Item
     /**
      * set Actions
      *
-     * @param ArrayCollection $actions
+     * @param Collection $actions
      *
      * @return Item
      */
-    public function setActions(ArrayCollection $actions)
+    public function setActions(Collection $actions)
     {
         $this->actions = $actions;
 
@@ -253,5 +254,4 @@ class Item
 
         return $this;
     }
-
 }
