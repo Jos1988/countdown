@@ -30,14 +30,15 @@
     {%- endif -%}
 {%- endblock time_widget -%}
 
-{% block _schedule_actions_entry_widget %}
+{% block _schedule_items_entry_actions_entry_widget %}
     <div class="action-form row">
         <div class="small-4 column">
-            {{ form_widget(action.name) }}
+            {{ form_widget(form.name) }}
         </div>
-        <div class="small-8 column">
-            {{ form_widget(action.description) }}
+        <div class="small-7 column">
+            {{ form_widget(form.description) }}
         </div>
+        <div class="small-1 column button alert delete-action"><span class="fa fa-trash"></span></div>
     </div>
 {% endblock %}
 
@@ -183,39 +184,41 @@
                                 <div class="small-4 text-left column manual-label">name</div>
                                 <div class="small-8 text-left column manual-label">description</div>
                             </div>
-                            <div id="actions-{{ item.vars.id }}" class="actions-holder" data-prototype="{{ form_widget(item.actions.vars.prototype)|e('html_attr') }}">
-                            {% for action in item.actions %}
-                                <div class="action-form row">
-                                    <div class="small-4 column">
-                                        {{ form_widget(action.name) }}
+                            <div id="actions-{{ item.vars.id }}" class="actions-holder"
+                                 data-prototype="{{ form_widget(item.actions.vars.prototype)|e('html_attr') }}">
+                                {% for action in item.actions %}
+                                    <div class="action-form row">
+                                        <div class="small-4 column">
+                                            {{ form_widget(action.name) }}
+                                        </div>
+                                        <div class="small-7 column">
+                                            {{ form_widget(action.description) }}
+                                        </div>
+                                        <div class="small-1 column button alert delete-action"><span class="fa fa-trash"></span></div>
                                     </div>
-                                    <div class="small-8 column">
-                                        {{ form_widget(action.description) }}
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
+                                {% endfor %}
+                            </div>
 
-                        <div id="extra-pane-{{ item.vars.id }}" class="dropdown-pane" data-dropdown>
-                            <div class="row">
-                                <div class="small-12 column">{{ form_label(item.description, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
-                                <div class="small-12 column has-error">
-                                    <div>{{ form_widget(item.description, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                            <div id="extra-pane-{{ item.vars.id }}" class="dropdown-pane" data-dropdown>
+                                <div class="row">
+                                    <div class="small-12 column">{{ form_label(item.description, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                    <div class="small-12 column has-error">
+                                        <div>{{ form_widget(item.description, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                    </div>
+                                    <div class="small-12 column invalid-field text-right">
+                                        <div>{{ form_errors(item.description) }}</div>
+                                    </div>
                                 </div>
-                                <div class="small-12 column invalid-field text-right">
-                                    <div>{{ form_errors(item.description) }}</div>
+                                <div class="row">
+                                    <div class="small-12 column">{{ form_label(item.owner, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                    <div class="small-12 column has-error">
+                                        <div>{{ form_widget(item.owner, {'label_attr' : {'class' : 'text-left'}}) }}</div>
+                                    </div>
+                                    <div class="small-12 column invalid-field text-right">
+                                        <div>{{ form_errors(item.owner) }}</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="small-12 column">{{ form_label(item.owner, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
-                                <div class="small-12 column has-error">
-                                    <div>{{ form_widget(item.owner, {'label_attr' : {'class' : 'text-left'}}) }}</div>
-                                </div>
-                                <div class="small-12 column invalid-field text-right">
-                                    <div>{{ form_errors(item.owner) }}</div>
-                                </div>
-                            </div>
-                        </div>
 
                     </fieldset>
                 </div>

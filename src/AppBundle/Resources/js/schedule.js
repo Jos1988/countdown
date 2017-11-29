@@ -25,6 +25,10 @@ $(document).ready(function () {
             e.preventDefault();
             addActionForm(actionHolder, newActionButton);
         });
+
+        actionHolder.find('.action-form').each(function(){
+            setActionDeleteButton(this);
+        });
     });
 });
 
@@ -37,6 +41,14 @@ function addActionForm(actionHolder, newActionButton) {
     actionHolder.data('index', index++);
 
     newActionButton.before(newActionForm);
+}
+
+function setActionDeleteButton(actionForm) {
+    var deleteButton = $(actionForm).find('.delete-action')[0];
+    $(deleteButton).on('click', function(e){
+        e.preventDefault;
+        actionForm.remove();
+    });
 }
 
 /**
