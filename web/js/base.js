@@ -2,9 +2,6 @@ $(document).foundation();
 
 $(document).ready(function () {
     createFillerRow();
-    makeBackgroundFillScreen();
-    // showNavMenu();
-    // setSlogan();
     prepareforms();
 
     $('#background').attr('data-mediaQuery', Foundation.MediaQuery.current);
@@ -14,22 +11,22 @@ $(document).ready(function () {
     $(window).scroll(function () {
             depthScrollEffect($(window).scrollTop(), oldScrollPos);
             oldScrollPos = $(window).scrollTop();
+            makeBackgroundFillScreen();
         }
     );
+
+    makeBackgroundFillScreen();
 });
 
 $(window).resize(function () {
-    console.log(Foundation.MediaQuery.current);
-
     //Detect foundation media breakpoint transition.
-    var mediaTransition = false;
-    if ($('#background').attr('data-mediaQuery') !== Foundation.MediaQuery.current) {
-        $('#background').attr('data-mediaQuery', Foundation.MediaQuery.current);
-        mediaTransition = true;
-    }
+    // var mediaTransition = false;
+    // if ($('#background').attr('data-mediaQuery') !== Foundation.MediaQuery.current) {
+    //     $('#background').attr('data-mediaQuery', Foundation.MediaQuery.current);
+    //     mediaTransition = true;
+    // }
 
     makeBackgroundFillScreen();
-    // setSlogan();
 });
 
 ////////////////////////////////////////////////////////////////
@@ -65,21 +62,13 @@ function depthScrollEffect(currentScroll, oldScroll) {
 //make sure background fills the screen.
 function makeBackgroundFillScreen() {
     var backgroundHeight = $('#background').height();
-    var windowHeight = $(window).height();
+    // var windowHeight = $(window).height();
+    var windowHeight = $(document).height();
 
     if (backgroundHeight < windowHeight) {
         $('#background').height(windowHeight);
     }
 }
-
-///////////////////// header styling //////////////////////////
-// function setSlogan() {
-//     var homeboxHeight = $('#home-box').outerHeight();
-//     var sloganHeight = $('.slogan-wrapper > h1').height();
-//     var sloganWrapper = $('.slogan-wrapper')
-//     sloganWrapper.height(homeboxHeight);
-//     sloganWrapper.css('padding-top', (homeboxHeight - sloganHeight) / 2 + 'px');
-// }
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////// form ////////////////////////////////
