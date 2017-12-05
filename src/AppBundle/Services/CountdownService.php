@@ -52,16 +52,6 @@ class CountdownService
     }
 
     /**
-     * @param Project $project
-     */
-    public function addProjectToItems(Project $project)
-    {
-        foreach ($project->getItems() as $item) {
-            $item->setProject($project);
-        }
-    }
-
-    /**
      * Return Current time.
      *
      * @return DateTime

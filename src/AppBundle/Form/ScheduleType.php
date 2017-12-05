@@ -22,6 +22,7 @@ class ScheduleType extends AbstractType
                 CollectionType::class,
                 [
                     'entry_type' => ItemType::class,
+                    'by_reference' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
                 ]

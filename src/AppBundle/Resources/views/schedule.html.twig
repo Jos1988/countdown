@@ -43,7 +43,8 @@
 {% endblock %}
 
 {% block _schedule_items_entry_widget %}
-    <div class="small-12 large-6 column">
+
+    <div class="small-12 large-5 column">
         <div class="row">
             <div class="small-12 has-error column">
                 {{ form_widget(form.name) }}
@@ -53,6 +54,7 @@
             </div>
         </div>
     </div>
+
     <div class="small-12 large-3 column start">
         <div class="row">
             <div class="small-12 column has-error">
@@ -63,16 +65,52 @@
             </div>
         </div>
     </div>
-    <div class="small-4 large-2 small-offset-2 large-offset-0 column">
-        <div class="button-group text-right">
-            <a class="dropdown button primary show-for-medium" type="button"
-               data-toggle="extra-pane-{{ form.vars.id }}"> more</a>
-            <a class="fa fa-caret-down button primary hide-for-medium" type="button"
-               data-toggle="extra-pane-{{ form.vars.id }}"></a>
+
+    <div class="small-4 large-3 small-offset-2 large-offset-0 column no-gutters">
+        <div class="row">
+            <div class="small-6 column button-group text-right no-gutters">
+                <a class="dropdown button primary show-for-medium"
+                   data-toggle="actions-pane-{{ form.vars.id }}"> actions</a>
+                <a class="fa fa-caret-down button primary hide-for-medium"
+                   data-toggle="actions-pane-{{ form.vars.id }}"></a>
+            </div>
+
+            <div class="small-6 column button-group text-left no-left-gutter">
+                <a class="dropdown button primary show-for-medium"
+                   data-toggle="extra-pane-{{ form.vars.id }}"> more</a>
+                <a class="fa fa-caret-down button primary hide-for-medium"
+                   data-toggle="extra-pane-{{ form.vars.id }}"></a>
+            </div>
         </div>
     </div>
-    <div id="extra-pane-{{ form.vars.id }}" class="dropdown-pane" data-dropdown>
+
+    <div id="actions-pane-{{ form.vars.id }}" class="dropdown-pane large" data-dropdown
+         data-close-on-click="true">
         <div class="row">
+            <div class="small-4 text-left column manual-label">name</div>
+            <div class="small-8 text-left column manual-label">description</div>
+        </div>
+        <div id="actions-{{ form.vars.id }}" class="actions-holder"
+             data-prototype="{{ form_widget(form.actions.vars.prototype)|e('html_attr') }}">
+            {% for action in form.actions %}
+                <div class="action-form row">
+                    <div class="small-4 column">
+                        {{ form_widget(action.name) }}
+                    </div>
+                    <div class="small-7 column">
+                        {{ form_widget(action.description) }}
+                    </div>
+                    <div class="small-1 column button alert delete-action"><span
+                                class="fa fa-trash"></span></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="extra-pane-{{ form.vars.id }}" class="dropdown-pane" data-dropdown
+         data-close-on-click="true">
+        <div class="row">
+            <div class="small-12 column">{{ form_label(form.description, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
             <div class="small-12 column has-error">
                 <div>{{ form_widget(form.description, {'label_attr' : {'class' : 'text-left'}}) }}</div>
             </div>
@@ -81,6 +119,7 @@
             </div>
         </div>
         <div class="row">
+            <div class="small-12 column">{{ form_label(form.owner, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
             <div class="small-12 column has-error">
                 <div>{{ form_widget(form.owner, {'label_attr' : {'class' : 'text-left'}}) }}</div>
             </div>
@@ -91,115 +130,119 @@
     </div>
 {% endblock %}
 
-{% block content %}
-    <div class="small-10 small-offset-1 text-center">
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="small-12 column callout small {{ label }}" data-closable>
-                    {{ message }}
-                    <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+    {% block content %}
+        <div class="small-10 small-offset-1 text-center">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="small-12 column callout small {{ label }}" data-closable>
+                        {{ message }}
+                        <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        {{ form_start(form) }}
-        <div class="row">
-            {% if 0 != form.vars.errors.count %}
-                <div class="small-12 column callout small alert">
-                    {{ form_errors(form) }}
-                </div>
-            {% endif %}
-        </div>
-        <h2>Project schedule</h2>
-        <table class="table unstriped text-left">
-            <tr>
-                <td><b>Name: </b></td>
-                <td>{{ project.title }}</td>
-            </tr>
-            <tr>
-                <td><b>Description:</b></td>
-                <td>{{ project.description }}</td>
-            </tr>
-            <tr>
-                <td><b>Date:</b></td>
-                <td>{{ project.date|date('m-d-Y') }}</td>
-            </tr>
-            <tr>
-                <td><b>Start:</b></td>
-                <td>{{ project.date|date('H:i') }}</td>
-            </tr>
-        </table>
-        <div class="row schedule-head show-for-large">
-            <div class="small-5 column manual-label">Name</div>
-            <div class="small-3 column end manual-label">Deadline</div>
-        </div>
-        <div class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
-            {% for item in form.items %}
-                <div class="row">
-                    <fieldset class="schedule-item">
+            {{ form_start(form) }}
+            <div class="row">
+                {% if 0 != form.vars.errors.count %}
+                    <div class="small-12 column callout small alert">
+                        {{ form_errors(form) }}
+                    </div>
+                {% endif %}
+            </div>
+            <h2>Project schedule</h2>
+            <table class="table unstriped text-left">
+                <tr>
+                    <td><b>Name: </b></td>
+                    <td>{{ project.title }}</td>
+                </tr>
+                <tr>
+                    <td><b>Description:</b></td>
+                    <td>{{ project.description }}</td>
+                </tr>
+                <tr>
+                    <td><b>Date:</b></td>
+                    <td>{{ project.date|date('m-d-Y') }}</td>
+                </tr>
+                <tr>
+                    <td><b>Start:</b></td>
+                    <td>{{ project.date|date('H:i') }}</td>
+                </tr>
+            </table>
+            <div class="row schedule-head show-for-large">
+                <div class="small-5 column manual-label">Name</div>
+                <div class="small-3 column end manual-label">Deadline</div>
+            </div>
+            <div class="items" data-prototype="{{ form_widget(form.items.vars.prototype)|e('html_attr') }}">
+                {% for item in form.items %}
+                    <div class="row">
+                        <fieldset class="schedule-item">
 
-                        <div class="small-12 large-5 column">
-                            <div class="row">
-                                <div class="small-12 has-error column">
-                                    {{ form_widget(item.name) }}
-                                </div>
-                                <div class="small-12 text-right invalid-field column">
-                                    {{ form_errors(item.name) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="small-12 large-3 column start">
-                            <div class="row">
-                                <div class="small-12 column has-error">
-                                    {{ form_widget(item.deadline) }}
-                                </div>
-                                <div class="small-12 text-right invalid-field column">
-                                    {{ form_errors(item.deadline) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="small-4 large-3 small-offset-2 large-offset-0 column no-gutters">
-                            <div class="row">
-                                <div class="small-6 column button-group text-right no-gutters">
-                                    <a class="dropdown button primary show-for-medium"
-                                       data-toggle="actions-pane-{{ item.vars.id }}"> actions</a>
-                                    <a class="fa fa-caret-down button primary hide-for-medium"
-                                       data-toggle="actions-pane-{{ item.vars.id }}"></a>
-                                </div>
-
-                                <div class="small-6 column button-group text-left no-left-gutter">
-                                    <a class="dropdown button primary show-for-medium"
-                                       data-toggle="extra-pane-{{ item.vars.id }}"> more</a>
-                                    <a class="fa fa-caret-down button primary hide-for-medium"
-                                       data-toggle="extra-pane-{{ item.vars.id }}"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="actions-pane-{{ item.vars.id }}" class="dropdown-pane large" data-dropdown>
-                            <div class="row">
-                                <div class="small-4 text-left column manual-label">name</div>
-                                <div class="small-8 text-left column manual-label">description</div>
-                            </div>
-                            <div id="actions-{{ item.vars.id }}" class="actions-holder"
-                                 data-prototype="{{ form_widget(item.actions.vars.prototype)|e('html_attr') }}">
-                                {% for action in item.actions %}
-                                    <div class="action-form row">
-                                        <div class="small-4 column">
-                                            {{ form_widget(action.name) }}
-                                        </div>
-                                        <div class="small-7 column">
-                                            {{ form_widget(action.description) }}
-                                        </div>
-                                        <div class="small-1 column button alert delete-action"><span class="fa fa-trash"></span></div>
+                            <div class="small-12 large-5 column">
+                                <div class="row">
+                                    <div class="small-12 has-error column">
+                                        {{ form_widget(item.name) }}
                                     </div>
-                                {% endfor %}
+                                    <div class="small-12 text-right invalid-field column">
+                                        {{ form_errors(item.name) }}
+                                    </div>
+                                </div>
                             </div>
 
-                            <div id="extra-pane-{{ item.vars.id }}" class="dropdown-pane" data-dropdown>
+                            <div class="small-12 large-3 column start">
+                                <div class="row">
+                                    <div class="small-12 column has-error">
+                                        {{ form_widget(item.deadline) }}
+                                    </div>
+                                    <div class="small-12 text-right invalid-field column">
+                                        {{ form_errors(item.deadline) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="small-4 large-3 small-offset-2 large-offset-0 column no-gutters">
+                                <div class="row">
+                                    <div class="small-6 column button-group text-right no-gutters">
+                                        <a class="dropdown button primary show-for-medium"
+                                           data-toggle="actions-pane-{{ item.vars.id }}"> actions</a>
+                                        <a class="fa fa-caret-down button primary hide-for-medium"
+                                           data-toggle="actions-pane-{{ item.vars.id }}"></a>
+                                    </div>
+
+                                    <div class="small-6 column button-group text-left no-left-gutter">
+                                        <a class="dropdown button primary show-for-medium"
+                                           data-toggle="extra-pane-{{ item.vars.id }}"> more</a>
+                                        <a class="fa fa-caret-down button primary hide-for-medium"
+                                           data-toggle="extra-pane-{{ item.vars.id }}"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="actions-pane-{{ item.vars.id }}" class="dropdown-pane large" data-dropdown
+                                 data-close-on-click="true">
+                                <div class="row">
+                                    <div class="small-4 text-left column manual-label">name</div>
+                                    <div class="small-8 text-left column manual-label">description</div>
+                                </div>
+                                <div id="actions-{{ item.vars.id }}" class="actions-holder"
+                                     data-prototype="{{ form_widget(item.actions.vars.prototype)|e('html_attr') }}">
+                                    {% for action in item.actions %}
+                                        <div class="action-form row">
+                                            <div class="small-4 column">
+                                                {{ form_widget(action.name) }}
+                                            </div>
+                                            <div class="small-7 column">
+                                                {{ form_widget(action.description) }}
+                                            </div>
+                                            <div class="small-1 column button alert delete-action"><span
+                                                        class="fa fa-trash"></span></div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div id="extra-pane-{{ item.vars.id }}" class="dropdown-pane" data-dropdown
+                                 data-close-on-click="true">
                                 <div class="row">
                                     <div class="small-12 column">{{ form_label(item.description, null, {'label_attr' : {'class' : 'text-left'}}) }}</div>
                                     <div class="small-12 column has-error">
@@ -219,25 +262,25 @@
                                     </div>
                                 </div>
                             </div>
-                    </fieldset>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="row">
-            <div class="button-group">
-                <a class="button success"
-                   href="{{ path('countdown_view', {'project' : project.id}) }}">View
-                </a>
-                {{ form_widget(form.save, {'attr' : {'class' : 'button primary'}}) }}
-                <a href="{{ path('countdown_index') }}" class="button secondary">Back</a>
+                        </fieldset>
+                    </div>
+                {% endfor %}
             </div>
+            <div class="row">
+                <div class="button-group">
+                    <a class="button success"
+                       href="{{ path('countdown_view', {'project' : project.id}) }}">View
+                    </a>
+                    {{ form_widget(form.save, {'attr' : {'class' : 'button primary'}}) }}
+                    <a href="{{ path('countdown_index') }}" class="button secondary">Back</a>
+                </div>
+            </div>
+            {{ form_widget(form._token) }}
+            {{ form_end(form, {'render_rest': false}) }}
         </div>
-        {{ form_widget(form._token) }}
-        {{ form_end(form, {'render_rest': false}) }}
-    </div>
-{% endblock %}
+    {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('js/schedule.js') }}"></script>
-{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/schedule.js') }}"></script>
+    {% endblock %}

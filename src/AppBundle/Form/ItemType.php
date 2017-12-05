@@ -25,6 +25,7 @@ class ItemType extends AbstractType
                 CollectionType::class,
                 [
                     'entry_type'  => ActionType::class,
+                    'by_reference' => false,
                     'allow_add' => true,
                     'allow_delete' => true,
                 ]

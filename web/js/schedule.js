@@ -15,37 +15,39 @@ $(document).ready(function () {
         newItemForm($collectionHolder, $newLinkLi);
     });
 
-    $('.actions-holder').each(function(){
-        var newActionButton = $('<div class="add_action button primary small">Add Action</div>');
-        var actionHolder = $(this);
-        actionHolder.append(newActionButton);
-        var count = actionHolder.find(':input').length;
-        $(this).data('index', count);
-        newActionButton.on('click' ,function(e){
-            e.preventDefault();
-            addActionForm(actionHolder, newActionButton);
-        });
-
-        actionHolder.find('.action-form').each(function(){
-            setActionDeleteButton(this);
-        });
+    $('.actions-holder').each(function () {
+        initActionForm(this);
     });
 });
+
+function initActionForm(actions) {
+    var newActionButton = $('<div class="add_action button primary small">Add Action</div>');
+    var actionHolder = $(actions);
+    actionHolder.append(newActionButton);
+    var count = actionHolder.find(':input').length;
+    $(this).data('index', count);
+    newActionButton.on('click', function (e) {
+        e.preventDefault();
+        addActionForm(actionHolder, newActionButton);
+    });
+
+    actionHolder.find('.action-form').each(function () {
+        setActionDeleteButton(actions);
+    });
+}
 
 function addActionForm(actionHolder, newActionButton) {
     var prototype = actionHolder.data('prototype');
     var index = actionHolder.data('index');
     var newActionForm = prototype;
-
     newActionForm = newActionForm.replace('/__name__/g', index);
     actionHolder.data('index', index++);
-
     newActionButton.before(newActionForm);
 }
 
 function setActionDeleteButton(actionForm) {
     var deleteButton = $(actionForm).find('.delete-action')[0];
-    $(deleteButton).on('click', function(e){
+    $(deleteButton).on('click', function (e) {
         e.preventDefault;
         actionForm.remove();
     });
@@ -61,11 +63,18 @@ function newItemForm($collectionHolder, $newLinkLi) {
     var prototype = $collectionHolder.data('prototype');
     var index = $collectionHolder.data('index');
     var newForm = prototype.replace(/__name__/g, index);
-    $collectionHolder.data('index', index + 1);
+    $collectionHolder.data('index', index++);
     var $newFormLi = $('<fieldset class="schedule-item"></fieldset>').append(newForm);
     $newFormLi = $('<div class="row 2"></div>').append($newFormLi);
     $newLinkLi.before($newFormLi);
     addItemFormDeleteLink($newFormLi, true);
+    index--;
+    //activate new dropdown pane.
+    $('#actions-pane-schedule_items_' + index).foundation();
+    $('#extra-pane-schedule_items_' + index).foundation();
+
+    //Start action form.
+    initActionForm($('#actions-pane-schedule_items_' + index + '> .actions-holder'));
 }
 
 /**

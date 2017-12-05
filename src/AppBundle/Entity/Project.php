@@ -2,9 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -252,9 +252,7 @@ class Project
      */
     public function removeItem(Item $item)
     {
-        if ($this->items->contains($item)) {
-            $this->items->removeElement($item);
-        }
+        $this->items->removeElement($item);
 
         return $this;
     }

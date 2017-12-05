@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Action;
+use AppBundle\Entity\Item;
 use AppBundle\Entity\Project;
 use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
@@ -123,28 +125,38 @@ class ProjectController extends Controller
 
         $form = $this->createForm(ScheduleType::class, $project);
         $originalItems = new ArrayCollection();
+
         foreach ($project->getItems() as $item) {
             $originalItems[] = $item;
+            if (null !== $item->getOriginalActions()) {
+                $item->setOriginalActions($item->getOriginalActions());
+            }
         }
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-
+            /** @var Item $originalItem */
             foreach ($originalItems as $originalItem) {
                 if (false === $project->getItems()->contains($originalItem)) {
                     $originalItem->setProject(null);
-                    $project->removeItem($originalItem);
                     $entityManager->persist($originalItem);
-                    $entityManager->remove($originalItem);
+                }
+
+                /** @var Action $originalAction */
+                if (null !== $originalItem->getOriginalActions()) {
+                    foreach ($originalItem->getOriginalActions() as $originalAction) {
+                        if (false === $originalItem->getActions()->contains($originalAction)) {
+                            $originalAction->setItem(null);
+                            $entityManager->persist($originalAction);
+                        }
+                    }
                 }
             }
 
-            $this->get('countdown.service')->addProjectToItems($project);
             $this->get('countdown.repository.project')->persist($project, false);
             $entityManager->flush();
-
             $this->addFlash('primary', 'Saved changes.');
 
             return $this->redirectToRoute('countdown_schedule', ['project' => $project->getId()]);

@@ -62,6 +62,11 @@ class Item
 
     /**
      * @var Collection
+     */
+    private $originalActions;
+
+    /**
+     * @var Collection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist", "remove"})
      */
@@ -72,6 +77,7 @@ class Item
      */
     public function __construct()
     {
+        $this->originalActions = new ArrayCollection();
         $this->actions = new ArrayCollection();
     }
 
@@ -200,6 +206,63 @@ class Item
     }
 
     /**
+     * get OriginalActions
+     *
+     * @return Collection
+     */
+    public function getOriginalActions()
+    {
+        return $this->originalActions;
+    }
+
+    /**
+     * set OriginalActions
+     *
+     * @param Collection $originalActions
+     *
+     * @return Item
+     */
+    public function setOriginalActions(Collection $originalActions)
+    {
+        $this->originalActions = $originalActions;
+
+        return $this;
+    }
+
+    /**
+     * Add action to item.
+     *
+     * @param Action $action
+     *
+     * @return Item
+     */
+    public function addOriginalAction(Action $action)
+    {
+        if (!$this->originalActions->contains($action)) {
+            $action->setItem($this);
+            $this->originalActions->add($action);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove action from item.
+     *
+     * @param Action $action
+     *
+     * @return $this
+     */
+    public function removeOriginalAction(Action $action)
+    {
+        if ($this->originalActions->contains($action)) {
+            $this->originalActions->remove($action);
+        }
+
+        return $this;
+    }
+
+    /**
      * get Actions
      *
      * @return Collection
@@ -233,6 +296,7 @@ class Item
     public function addAction(Action $action)
     {
         if (!$this->actions->contains($action)) {
+            $action->setItem($this);
             $this->actions->add($action);
         }
 

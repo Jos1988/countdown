@@ -45,7 +45,7 @@ class Action
     /**
      * @var Item
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Item", inversedBy="actions")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Item", inversedBy="actions", cascade={"persist", "remove"})
      */
     private $item;
 
@@ -155,4 +155,3 @@ class Action
         return $this->completed;
     }
 }
-
