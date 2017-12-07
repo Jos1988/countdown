@@ -32,22 +32,28 @@ function initActionForm(actions) {
     });
 
     actionHolder.find('.action-form').each(function () {
-        setActionDeleteButton(actions);
+        setActionDeleteButton(this);
     });
 }
 
 function addActionForm(actionHolder, newActionButton) {
+    console.log('1');
     var prototype = actionHolder.data('prototype');
     var index = actionHolder.data('index');
     var newActionForm = prototype;
     newActionForm = newActionForm.replace('/__name__/g', index);
     actionHolder.data('index', index++);
     newActionButton.before(newActionForm);
+    console.log($(actionHolder).find('.action-form:last')[0]);
+    setActionDeleteButton($(actionHolder).find('.action-form:last'));
+    // setActionDeleteButton(newActionForm);
 }
 
 function setActionDeleteButton(actionForm) {
+    console.log(actionForm);
     var deleteButton = $(actionForm).find('.delete-action')[0];
     $(deleteButton).on('click', function (e) {
+        console.log(actionForm);
         e.preventDefault;
         actionForm.remove();
     });

@@ -32,7 +32,7 @@ function initActionForm(actions) {
     });
 
     actionHolder.find('.action-form').each(function () {
-        setActionDeleteButton(actions);
+        setActionDeleteButton(this);
     });
 }
 
@@ -43,6 +43,7 @@ function addActionForm(actionHolder, newActionButton) {
     newActionForm = newActionForm.replace('/__name__/g', index);
     actionHolder.data('index', index++);
     newActionButton.before(newActionForm);
+    setActionDeleteButton($(actionHolder).find('.action-form:last'));
 }
 
 function setActionDeleteButton(actionForm) {
