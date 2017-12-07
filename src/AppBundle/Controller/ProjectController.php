@@ -7,6 +7,8 @@ use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
 use AppBundle\Form\ScheduleType;
 use Doctrine\Common\Collections\ArrayCollection;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,6 +28,8 @@ class ProjectController extends Controller
      * @Route("/", name="countdown_index")
      *
      * @return Response
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function indexAction()
     {
@@ -95,7 +99,7 @@ class ProjectController extends Controller
     /**
      * Get time.
      *
-     * @Route("/time")
+     * @Route("/update", name="update")
      *
      * @return JsonResponse
      */
@@ -103,7 +107,12 @@ class ProjectController extends Controller
     {
         $currentTime = $this->get('countdown.service')->getCurrentTime();
 
-        return new JsonResponse(['time' => $currentTime->format('H:i:s')]);
+        return new JsonResponse(
+            [
+                'time' => $currentTime->getTimestamp(),
+                'interval' => $this->getParameter('update_interval_ms')
+            ]
+        );
     }
 
     /**

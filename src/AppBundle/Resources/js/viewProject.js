@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('.slogan-wrapper > h1').append('<span id="clock">' + $('.main-view-holder').attr('data-time') + '</span>');
-    updateTime();
 
     var status = $('.main-view-holder').attr('data-status');
     if (status === 'today') {
@@ -15,29 +14,15 @@ $(document).ready(function () {
 });
 
 /**
- * Run clock to indicate server time.
- */
-function updateTime() {
-    var clock = setInterval(function () {
-        // clearInterval(clock);
-        $.ajax('/time').done(
-            function (data) {
-                $('#clock').html(data['time']);
-            }
-        );
-    }, 1000);
-}
-
-/**
  * Find proper view item for count-down.
  *
  * @param start
  */
 function findCountdown(start) {
-    $.ajax('/time').done(
+    $.ajax('/update').done(
         function (data) {
             var items = $('.view-item');
-            var time = stringTimeToSeconds(data['time']);
+            var time = data['time'];
             var prevItem = {
                 item: null,
                 time: null
@@ -60,8 +45,6 @@ function findCountdown(start) {
  */
 function checkViewItem(viewItem, prevItem, projectStart, time) {
     var itemDeadline = $(viewItem).attr('data-deadline');
-    projectStart = stringTimeToSeconds(projectStart);
-    itemDeadline = stringTimeToSeconds(itemDeadline);
     if (null === prevItem.time) {
         prevItem.time = projectStart;
     }
@@ -86,18 +69,19 @@ function checkViewItem(viewItem, prevItem, projectStart, time) {
  * @param countDown
  */
 function startCountdown(countDown) {
-    $.ajax('/time').done(
+    $.ajax('/update').done(
         function (data) {
-            var now = stringTimeToSeconds(data['time']);
+            var now = data['time'];
+            var interval = data['interval'];
 
             //start - nex start in seconds
             var startTime = findStartTime($(countDown));
-            var endTime = stringTimeToSeconds($(countDown).attr('data-deadline'));
+            var endTime = $(countDown).attr('data-deadline');
             var complete = (endTime - startTime);
             now = (now - startTime);
             var progressbar = createProgressbar($(countDown), now, complete);
             toggleItemData(countDown, true, false);
-            runProgressbar(progressbar, now, 1, complete, 1000);
+            runProgressbar(progressbar, now, 1, complete, interval);
         }
     );
 }
@@ -177,9 +161,9 @@ function createProgressbar(countDown, now, complete) {
 function findStartTime(countDown) {
     var startTime = countDown.parent('.view-item-wrapper').prev().prev().find('.view-item').attr('data-deadline');
     if (typeof startTime === 'undefined') {
-        return stringTimeToSeconds($('.main-view-holder').attr('data-start-time'));
+        return $('.main-view-holder').attr('data-start-time');
     } else {
-        return stringTimeToSeconds(startTime);
+        return startTime;
     }
 }
 

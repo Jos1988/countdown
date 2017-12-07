@@ -18,7 +18,14 @@
             <div class="small-8 medium-4 column"><h6 class="no-bottom-margin">Responsible</h6></div>
             <div class="small-4 medium-2 column"><h6 class="no-bottom-margin">Deadline</h6></div>
         </div>
+        {% set day = project.items[0].deadline|date('d') %}
         {% for item in project.items %}
+            {% if day != item.deadline|date('d') %}
+                <div class="row small-12 column new-day text-center">
+                    <h6>{{ item.deadline|date('d-m-Y') }}</h6>
+                </div>
+                {% set day = item.deadline|date('d') %}
+            {% endif %}
             <div class="row view-item-wrapper" data-toggle="item-{{ item.id }}-data">
                 <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
                      data-deadline="{{ item.deadline }}">
@@ -32,8 +39,9 @@
                             -
                         {% endif %}
                     </div>
-                    <div class="small-4 medium-2 column small-text-right end item-start">
-                        {{ item.deadline|trim('00', 'right')|trim(':', 'right') }}
+                    <div class="small-4 medium-2 column small-text-right end item-start"
+                         data-timestamp="{{ item.deadline }}">
+                        {{ item.deadline|date('H:i') }}
                     </div>
                 </div>
             </div>
