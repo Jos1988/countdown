@@ -88,7 +88,7 @@ class ProjectController extends Controller
 
         return $this->render(
             '@App/showProject.html.twig',
-            ['project' => $project, 'start' => $project->getDate()->format('H:i:s'), 'status' => $status]
+            ['project' => $project, 'start' => $project->getDate()->getTimestamp(), 'status' => $status]
         );
     }
 
