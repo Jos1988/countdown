@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,9 +46,9 @@ class Item
     private $owner;
 
     /**
-     * @var string
+     * @var DateTime
      *
-     * @ORM\Column(name="deadline", type="string", length=20, nullable=true)
+     * @ORM\Column(name="deadline", type="datetime", length=20, nullable=true)
      */
     private $deadline;
 
@@ -141,7 +142,7 @@ class Item
     /**
      * get Deadline
      *
-     * @return string
+     * @return DateTime
      */
     public function getDeadline()
     {
@@ -151,11 +152,11 @@ class Item
     /**
      * set Deadline
      *
-     * @param string $deadline
+     * @param DateTime $deadline
      *
      * @return Item
      */
-    public function setDeadline(string $deadline)
+    public function setDeadline(DateTime $deadline)
     {
         $this->deadline = $deadline;
 

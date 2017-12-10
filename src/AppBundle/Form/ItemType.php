@@ -3,7 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,7 +19,7 @@ class ItemType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('owner')
-            ->add('deadline', TimeType::class, ['input' => 'string', 'widget' => 'choice']);
+            ->add('deadline', DateTimeType::class, ['date_widget' => 'single_text']);
     }
 
     /**

@@ -129,7 +129,6 @@ class ProjectController extends Controller
         Request $request,
         Project $project
     ): Response {
-
         $form = $this->createForm(ScheduleType::class, $project);
         $originalItems = new ArrayCollection();
         foreach ($project->getItems() as $item) {

@@ -157,7 +157,7 @@ class ProjectFixtures extends Fixture
                 $item->setName($itemData['name'])
                     ->setDescription($itemData['description'])
                     ->setOwner($itemData['owner'])
-                    ->setDeadline($time->getTimestamp())
+                    ->setDeadline(clone $time)
                     ->setProject($project);
                 
                 $time->add(new DateInterval($itemData['time']));

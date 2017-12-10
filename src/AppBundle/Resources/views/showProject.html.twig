@@ -28,7 +28,7 @@
             {% endif %}
             <div class="row view-item-wrapper" data-toggle="item-{{ item.id }}-data">
                 <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
-                     data-deadline="{{ item.deadline }}">
+                     data-deadline="{{ item.deadline.timestamp }}">
                     <div class="small-8 medium-6 text-left column item-name">
                         {{ item.name }}
                     </div>
@@ -40,7 +40,7 @@
                         {% endif %}
                     </div>
                     <div class="small-4 medium-2 column small-text-right end item-start"
-                         data-timestamp="{{ item.deadline }}">
+                         data-timestamp="{{ item.deadline.timestamp }}">
                         {{ item.deadline|date('H:i') }}
                     </div>
                 </div>
