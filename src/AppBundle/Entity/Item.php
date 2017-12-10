@@ -2,8 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,9 +46,9 @@ class Item
     private $owner;
 
     /**
-     * @var string
+     * @var DateTime
      *
-     * @ORM\Column(name="deadline", type="string", length=20, nullable=true)
+     * @ORM\Column(name="deadline", type="datetime", length=20, nullable=true)
      */
     private $deadline;
 
@@ -59,27 +58,6 @@ class Item
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="items", cascade={"persist", "remove"})
      */
     private $project;
-
-    /**
-     * @var Collection
-     */
-    private $originalActions;
-
-    /**
-     * @var Collection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist", "remove"})
-     */
-    private $actions;
-
-    /**
-     * Item constructor.
-     */
-    public function __construct()
-    {
-        $this->originalActions = new ArrayCollection();
-        $this->actions = new ArrayCollection();
-    }
 
     /**
      * @return int
@@ -164,7 +142,7 @@ class Item
     /**
      * get Deadline
      *
-     * @return string
+     * @return DateTime
      */
     public function getDeadline()
     {
@@ -174,11 +152,11 @@ class Item
     /**
      * set Deadline
      *
-     * @param string $deadline
+     * @param DateTime $deadline
      *
      * @return Item
      */
-    public function setDeadline(string $deadline)
+    public function setDeadline(DateTime $deadline)
     {
         $this->deadline = $deadline;
 
@@ -201,120 +179,6 @@ class Item
     public function setProject(Project $project = null)
     {
         $this->project = $project;
-
-        return $this;
-    }
-
-    /**
-     * get OriginalActions
-     *
-     * @return Collection
-     */
-    public function getOriginalActions()
-    {
-        return $this->originalActions;
-    }
-
-    /**
-     * set OriginalActions
-     *
-     * @param Collection $originalActions
-     *
-     * @return Item
-     */
-    public function setOriginalActions(Collection $originalActions)
-    {
-        $this->originalActions = $originalActions;
-
-        return $this;
-    }
-
-    /**
-     * Add action to item.
-     *
-     * @param Action $action
-     *
-     * @return Item
-     */
-    public function addOriginalAction(Action $action)
-    {
-        if (!$this->originalActions->contains($action)) {
-            $action->setItem($this);
-            $this->originalActions->add($action);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove action from item.
-     *
-     * @param Action $action
-     *
-     * @return $this
-     */
-    public function removeOriginalAction(Action $action)
-    {
-        if ($this->originalActions->contains($action)) {
-            $this->originalActions->remove($action);
-        }
-
-        return $this;
-    }
-
-    /**
-     * get Actions
-     *
-     * @return Collection
-     */
-    public function getActions(): Collection
-    {
-        return $this->actions;
-    }
-
-    /**
-     * set Actions
-     *
-     * @param Collection $actions
-     *
-     * @return Item
-     */
-    public function setActions(Collection $actions)
-    {
-        $this->actions = $actions;
-
-        return $this;
-    }
-
-    /**
-     * Add action to item.
-     *
-     * @param Action $action
-     *
-     * @return Item
-     */
-    public function addAction(Action $action)
-    {
-        if (!$this->actions->contains($action)) {
-            $action->setItem($this);
-            $this->actions->add($action);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove action from item.
-     *
-     * @param Action $action
-     *
-     * @return $this
-     */
-    public function removeAction(Action $action)
-    {
-        if ($this->actions->contains($action)) {
-            $this->actions->remove($action);
-        }
 
         return $this;
     }
