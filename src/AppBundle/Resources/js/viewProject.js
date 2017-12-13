@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.slogan-wrapper > h1').append('<span id="clock">' + $('.main-view-holder').attr('data-time') + '</span>');
+    // $('.slogan-wrapper > h1').append('<span id="clock">' + $('.main-view-holder').attr('data-time') + '</span>');
 
     var status = $('.main-view-holder').attr('data-status');
     if (status === 'today') {
@@ -11,7 +11,23 @@ $(document).ready(function () {
             $(this).addClass('completed');
         });
     }
+
+    armCheckboxes();
 });
+
+function armCheckboxes()
+{
+    $('.action-checkbox').click(function(){
+        var checkbox = this;
+        console.log(checkbox);
+        var action = checkbox.id;
+        console.log(action);
+        action = action.split('-');
+        console.log(action[1]);
+        var url = '/action/update/' + action[1];
+        $.ajax(url);
+    });
+}
 
 /**
  * Find proper view item for count-down.
@@ -165,18 +181,4 @@ function findStartTime(countDown) {
     } else {
         return startTime;
     }
-}
-
-/**
- * Turn time string 'hh:mm:ss' to seconds.
- *
- * @param time
- * @returns {number}
- */
-function stringTimeToSeconds(time) {
-    var timeExp = time.split(':');
-    var seconds = Number(timeExp[0]) * 3600;
-    seconds = seconds + Number(timeExp[1]) * 60;
-
-    return seconds + Number(timeExp[2]);
 }

@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Project;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\OptimisticLockException;
 
 /**
  * ProjectRepository
@@ -25,6 +26,8 @@ class ProjectRepository extends EntityRepository
      *
      * @param Project $project
      * @param bool    $flush
+     *
+     * @throws OptimisticLockException
      */
     public function persist(Project $project, $flush = true)
     {

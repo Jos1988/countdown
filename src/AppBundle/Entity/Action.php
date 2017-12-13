@@ -150,7 +150,7 @@ class Action
      *
      * @return bool
      */
-    public function getCompleted()
+    public function isCompleted()
     {
         return $this->completed;
     }

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,6 +60,27 @@ class Item
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Project", inversedBy="items", cascade={"persist", "remove"})
      */
     private $project;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Action", mappedBy="item", cascade={"persist", "remove"})
+     */
+    private $actions;
+
+    /**
+     * @var Collection
+     */
+    private $originalActions;
+
+    /**
+     * Item constructor.
+     */
+    public function __construct()
+    {
+        $this->actions = new ArrayCollection();
+        $this->originalActions = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -179,6 +202,120 @@ class Item
     public function setProject(Project $project = null)
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * get Actions
+     *
+     * @return Collection
+     */
+    public function getActions(): Collection
+    {
+        return $this->actions;
+    }
+
+    /**
+     * set Actions
+     *
+     * @param Collection $actions *
+     *
+     * @return Item
+     */
+    public function setActions(Collection $actions)
+    {
+        $this->actions = $actions;
+
+        return $this;
+    }
+
+    /**
+     * Add action to item.
+     *
+     * @param Action $action
+     *
+     * @return Item
+     */
+    public function addAction(Action $action)
+    {
+        if (!$this->actions->contains($action)) {
+            $action->setItem($this);
+            $this->actions->add($action);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove action from item.
+     *
+     * @param Action $action
+     *
+     * @return $this
+     */
+    public function removeAction(Action $action)
+    {
+        if ($this->actions->contains($action)) {
+            $this->actions->remove($action);
+        }
+
+        return $this;
+    }
+
+    /**
+     * get OriginalActions
+     *
+     * @return Collection
+     */
+    public function getOriginalActions()
+    {
+        return $this->originalActions;
+    }
+
+    /**
+     * set OriginalActions
+     *
+     * @param Collection $originalActions
+     *
+     * @return Item
+     */
+    public function setOriginalActions(Collection $originalActions)
+    {
+        $this->originalActions = $originalActions;
+
+        return $this;
+    }
+
+    /**
+     * Add action to item.
+     *
+     * @param Action $action
+     *
+     * @return Item
+     */
+    public function addOriginalAction(Action $action)
+    {
+        if (!$this->originalActions->contains($action)) {
+            $action->setItem($this);
+            $this->originalActions->add($action);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove action from item.
+     *
+     * @param Action $action
+     *
+     * @return $this
+     */
+    public function removeOriginalAction(Action $action)
+    {
+        if ($this->originalActions->contains($action)) {
+            $this->originalActions->remove($action);
+        }
 
         return $this;
     }

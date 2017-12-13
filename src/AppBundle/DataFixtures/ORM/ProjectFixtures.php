@@ -93,7 +93,7 @@ class ProjectFixtures extends Fixture
                 ],
                 2 => [
                     'name' => 'Gereed om open te gaan.',
-                    'description' => 'Alle sectore gereed om open te gaan.',
+                    'description' => 'Alle sectoren gereed om open te gaan.',
                     'owner' => 'Supervisors',
                     'time' => 'PT90M',
                 ],

@@ -16,6 +16,13 @@ services:
         arguments:
             - AppBundle\Entity\User
 
+    AppBundle\Repository\ActionRepository:
+        public: true
+        autowire: false
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - AppBundle\Entity\Action
+
     countdown.repository.item:
         class: AppBundle\Repository\ItemRepository
         public: true
@@ -32,12 +39,11 @@ services:
         arguments:
             - AppBundle\Entity\Project
 
-    countdown.service:
-        class: AppBundle\Services\CountdownService
+    AppBundle\Services\CountdownService:
         public: true
-        autowire: false
-        arguments:
+        autowire: true
         arguments:
             - "@countdown.repository.project"
             - "@countdown.repository.item"
+            - '@AppBundle\Repository\ActionRepository'
             - "%app_timezone%"

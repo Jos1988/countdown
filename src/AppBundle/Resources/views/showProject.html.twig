@@ -6,69 +6,83 @@
 {% endblock %}
 
 {% block content %}
-    <div class="small-12 medium-10 medium-offset-1 main-view-holder" data-start-time="{{ start }}"
-         data-status="{{ status }}">
-        <div class="row">
-            <div class="small-12 small-text-center">
-                <h3>{{ project.title }}</h3>
-            </div>
+<div class="small-12 medium-10 medium-offset-1 main-view-holder" data-start-time="{{ start }}"
+     data-status="{{ status }}">
+    <div class="row">
+        <div class="small-12 small-text-center">
+            <h3>{{ project.title }}</h3>
         </div>
-        <div class="row show-for-medium">
-            <div class="small-12 medium-6 column"><h6 class="no-bottom-margin">Event</h6></div>
-            <div class="small-8 medium-4 column"><h6 class="no-bottom-margin">Responsible</h6></div>
-            <div class="small-4 medium-2 column"><h6 class="no-bottom-margin">Deadline</h6></div>
-        </div>
-        {% set day = project.items[0].deadline|date('d') %}
-        {% for item in project.items %}
-            {% if day != item.deadline|date('d') %}
-                <div class="row small-12 column new-day text-center">
-                    <h6>{{ item.deadline|date('d-m-Y') }}</h6>
-                </div>
-                {% set day = item.deadline|date('d') %}
-            {% endif %}
-            <div class="row view-item-wrapper" data-toggle="item-{{ item.id }}-data">
-                <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
-                     data-deadline="{{ item.deadline.timestamp }}">
-                    <div class="small-8 medium-6 text-left column item-name">
-                        {{ item.name }}
-                    </div>
-                    <div class="small-8 medium-4 text-left column show-for-medium">
-                        {% if item.owner != '' %}
-                            {{ item.owner }}
-                        {% else %}
-                            -
-                        {% endif %}
-                    </div>
-                    <div class="small-4 medium-2 column small-text-right end item-start"
-                         data-timestamp="{{ item.deadline.timestamp }}">
-                        {{ item.deadline|date('H:i') }}
-                    </div>
-                </div>
+    </div>
+    <div class="row show-for-medium">
+        <div class="small-12 medium-6 column"><h6 class="no-bottom-margin">Event</h6></div>
+        <div class="small-8 medium-4 column"><h6 class="no-bottom-margin">Responsible</h6></div>
+        <div class="small-4 medium-2 column"><h6 class="no-bottom-margin">Deadline</h6></div>
+    </div>
+    {% set day = project.items[0].deadline|date('d') %}
+    {% for item in project.items %}
+        {% if day != item.deadline|date('d') %}
+            <div class="row small-12 column new-day text-center">
+                <h6>{{ item.deadline|date('d-m-Y') }}</h6>
             </div>
-            <div id="item-{{ item.id }}-data" class="row item-data" hidden data-toggler data-animate="fade-in fade-out">
-                <div class="small-12 column">
-                    {% if null != item.owner %}
-                        <div class="icon fa fa-user show-for-small-only"></div>
-                        <div class="text show-for-small-only">{{ item.owner }}</div>
-                    {% endif %}
-                    {% if null != item.description %}
-                        <div class="icon fa fa-info-circle"></div>
-                        <div class="text">{{ item.description }}</div>
-                    {% else %}
-                        <div class="text">no description</div>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <br>
-            <div class="row">
-                <div class="small-12 medium-4 medium-offset-4 large-2 large-offset-5 text-right column">
-                    <a class="small-12 column button primary"
-                       href="{{ path('countdown_schedule', {'project' : project.id}) }}">Schedule</a>
-                </div>
-            </div>
+            {% set day = item.deadline|date('d') %}
         {% endif %}
+        <div class="row view-item-wrapper" data-toggle="item-{{ item.id }}-data">
+            <div class="small-12 view-item column" {% if item.name == 'start' %}id="count-down"{% endif %}
+                 data-deadline="{{ item.deadline.timestamp }}">
+                <div class="small-8 medium-6 text-left column item-name">
+                    {{ item.name }}
+                </div>
+                <div class="small-8 medium-4 text-left column show-for-medium">
+                    {% if item.owner != '' %}
+                        {{ item.owner }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <div class="small-4 medium-2 column small-text-right end item-start"
+                     data-timestamp="{{ item.deadline.timestamp }}">
+                    {{ item.deadline|date('H:i') }}
+                </div>
+            </div>
+        </div>
+        <div id="item-{{ item.id }}-data" class="row item-data" hidden data-toggler data-animate="fade-in fade-out">
+            <div class="small-12 medium-6 column">
+                {% if null != item.owner %}
+                    <div class="icon fa fa-user show-for-small-only"></div>
+                    <div class="text show-for-small-only">{{ item.owner }}</div>
+                {% endif %}
+                {% if null != item.description %}
+                    <div class="icon fa fa-info-circle"></div>
+                    <div class="text">{{ item.description }}</div>
+                {% else %}
+                    <div class="text">no description</div>
+                {% endif %}
+            </div>
+            <div class="small-12 medium-6 column">
+                {% for action in item.actions %}
+                    <label>
+                        <input type="checkbox"
+                               class="action-checkbox"
+                               id="action-{{ action.id }}"
+                                {% if action.completed %}
+                                    checked="checked"
+                                {% endif %}
+                        >
+                        {{ action.name }}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <br>
+        <div class="row">
+            <div class="small-12 medium-4 medium-offset-4 large-2 large-offset-5 text-right column">
+                <a class="small-12 column button primary"
+                   href="{{ path('countdown_schedule', {'project' : project.id}) }}">Schedule</a>
+            </div>
+        </div>
+    {% endif %}
     </div>
 {% endblock %}
 

@@ -8,7 +8,9 @@ use AppBundle\Entity\Project;
 use AppBundle\Entity\User;
 use AppBundle\Form\ProjectType;
 use AppBundle\Form\ScheduleType;
+use AppBundle\Services\CountdownService;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\OptimisticLockException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -107,7 +109,7 @@ class ProjectController extends Controller
      */
     public function getTimeAction()
     {
-        $currentTime = $this->get('countdown.service')->getCurrentTime();
+        $currentTime = $this->get(CountdownService::class)->getCurrentTime();
 
         return new JsonResponse(
             [
@@ -125,6 +127,7 @@ class ProjectController extends Controller
      *
      * @return Response
      *
+     * @throws OptimisticLockException
      * @Route("/schedule/{project}", name="countdown_schedule")
      */
     public function scheduleAction(
@@ -310,11 +313,12 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return Response
+     * @throws OptimisticLockException
      */
     public function deleteAction(
         Project $project
     ) {
-        $this->get('countdown.service')->setDelete($project);
+        $this->get(CountdownService::class)->setDelete($project);
 
         return $this->redirectToRoute('countdown_index');
     }

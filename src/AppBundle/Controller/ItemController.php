@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Item;
 use AppBundle\Entity\Project;
 use AppBundle\Form\ItemType;
+use AppBundle\Services\CountdownService;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,6 +61,7 @@ class ItemController extends Controller
      * @param Item    $item
      *
      * @return Response
+     * @throws OptimisticLockException
      */
     private function createOrEditItem(
         Request $request,
@@ -67,7 +70,7 @@ class ItemController extends Controller
         Item $item = null
     ) {
         $itemRepository = $this->get('countdown.repository.item');
-        $countdownService = $this->get('countdown.service');
+        $countdownService = $this->get(CountdownService::class);
         $title = 'Edit Item';
         $first = false;
         if ('create' == $action) {

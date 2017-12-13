@@ -2,12 +2,14 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Entity\Item;
+use AppBundle\Entity\Action;
 use AppBundle\Entity\Project;
+use AppBundle\Repository\ActionRepository;
 use AppBundle\Repository\ItemRepository;
 use AppBundle\Repository\ProjectRepository;
 use DateTime;
 use DateTimeZone;
+use Doctrine\ORM\OptimisticLockException;
 
 /**
  * Class CountdownService
@@ -22,6 +24,9 @@ class CountdownService
     /** @var ItemRepository */
     private $itemRepository;
 
+    /** @var ActionRepository */
+    private $actionRepository;
+
     /** @var DateTimeZone */
     private $timezone;
 
@@ -30,12 +35,18 @@ class CountdownService
      *
      * @param ProjectRepository $projectRepository
      * @param ItemRepository    $itemRepository
+     * @param ActionRepository  $actionRepository
      * @param string            $timeZone
      */
-    public function __construct(ProjectRepository $projectRepository, ItemRepository $itemRepository, string $timeZone)
-    {
+    public function __construct(
+        ProjectRepository $projectRepository,
+        ItemRepository $itemRepository,
+        ActionRepository $actionRepository,
+        string $timeZone
+    ) {
         $this->projectRepository = $projectRepository;
         $this->itemRepository = $itemRepository;
+        $this->actionRepository = $actionRepository;
         $this->timezone = new DateTimeZone($timeZone);
     }
 
@@ -43,6 +54,8 @@ class CountdownService
      * Set project for deletion.
      *
      * @param Project $project
+     *
+     * @throws OptimisticLockException
      */
     public function setDelete(Project $project)
     {
@@ -56,11 +69,23 @@ class CountdownService
      *
      * @return DateTime
      */
-    public function getCurrentTime():DateTime
+    public function getCurrentTime(): DateTime
     {
         $currentTime = new DateTime();
         $currentTime->setTimezone($this->timezone);
 
         return $currentTime;
+    }
+
+    /**
+     * @param Action $action
+     *
+     * @throws OptimisticLockException
+     */
+    public function toggleAction(Action $action)
+    {
+        $action->setCompleted(!$action->isCompleted());
+
+        $this->actionRepository->persist($action);
     }
 }
