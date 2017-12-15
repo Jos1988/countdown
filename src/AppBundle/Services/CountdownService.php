@@ -10,6 +10,7 @@ use AppBundle\Repository\ProjectRepository;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\OptimisticLockException;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
  * Class CountdownService
@@ -80,12 +81,39 @@ class CountdownService
     /**
      * @param Action $action
      *
+     * @param string $completed
+     *
      * @throws OptimisticLockException
      */
-    public function toggleAction(Action $action)
+    public function setActionCompleted(Action $action, string $completed)
     {
-        $action->setCompleted(!$action->isCompleted());
+        if ($completed === 'true') {
+            $completed = true;
+        } elseif ($completed === 'false') {
+            $completed = false;
+        } else {
+            throw new Exception('Unkown \'completed\' status' . $completed . '.', 404);
+        }
+
+        $action->setCompleted($completed)
+            ->setUpdated(new DateTime());
 
         $this->actionRepository->persist($action);
+    }
+
+    /**
+     * Get project actions updated since timestamp.
+     *
+     * @param Project $project
+     * @param int     $lastUpdatedStamp
+     *
+     * @return Action[]
+     */
+    public function getUpdatedActions(Project $project, int $lastUpdatedStamp)
+    {
+        $lastUpdated = new DateTime();
+        $lastUpdated->setTimestamp($lastUpdatedStamp);
+
+        return $this->actionRepository->getUpdatedActions($project, $lastUpdated);
     }
 }

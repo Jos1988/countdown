@@ -24,7 +24,7 @@ function armCheckboxes()
         console.log(action);
         action = action.split('-');
         console.log(action[1]);
-        var url = '/action/update/' + action[1];
+        var url = '/action/push/' + action[1];
         $.ajax(url);
     });
 }

@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Action;
+use AppBundle\Entity\Project;
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -22,5 +24,26 @@ class ActionRepository extends EntityRepository
     {
         $this->getEntityManager()->persist($action);
         $this->getEntityManager()->flush($action);
+    }
+
+    /**
+     * Get Actions from project updated since datetime.
+     *
+     * @param Project  $project
+     * @param DateTime $datetime
+     *
+     * @return array
+     */
+    public function getUpdatedActions(Project $project, DateTime $datetime)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin('a.item', 'i')
+            ->innerJoin('i.project', 'p')
+            ->where('p.id = :project')
+            ->setParameter('project', $project)
+            ->andWhere('a.updated > :updated')
+            ->setParameter('updated', $datetime)
+            ->getQuery()
+            ->getResult();
     }
 }

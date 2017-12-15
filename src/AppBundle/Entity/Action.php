@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,13 @@ class Action
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
+     */
+    private $updated = null;
 
     /**
      * @var bool
@@ -129,6 +137,30 @@ class Action
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * get Update
+     *
+     * @return DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * set Update
+     *
+     * @param DateTime $update
+     *
+     * @return Action
+     */
+    public function setUpdated(DateTime $update)
+    {
+        $this->updated = $update;
+
+        return $this;
     }
 
     /**
