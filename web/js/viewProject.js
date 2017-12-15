@@ -13,18 +13,35 @@ $(document).ready(function () {
     }
 
     armCheckboxes();
+    getActionUpdates();
 });
 
-function armCheckboxes()
-{
-    $('.action-checkbox').click(function(){
+function getActionUpdates() {
+    var interval = $('.main-view-holder').attr('data-timeout');
+    var project = $('.main-view-holder').attr('data-project');
+    var lastUpdate = $('.main-view-holder').attr('data-last-update');
+    setInterval(function () {
+        getUpdate(project, lastUpdate);
+    }, interval)
+}
+
+function getUpdate(project, lastUpdate) {
+    var url = '/action/pull/' + project + '/' + lastUpdate;
+    $.ajax(url).done(function (data) {
+        console.log(url);
+        console.log(data);
+    });
+}
+
+/**
+ * Arm Action checkboxes to send update on check or uncheck.
+ */
+function armCheckboxes() {
+    $('.action-checkbox').click(function () {
         var checkbox = this;
-        console.log(checkbox);
         var action = checkbox.id;
-        console.log(action);
         action = action.split('-');
-        console.log(action[1]);
-        var url = '/action/push/' + action[1];
+        var url = '/action/push/' + action[1] + '/' + checkbox.checked;
         $.ajax(url);
     });
 }

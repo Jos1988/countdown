@@ -96,7 +96,12 @@ class ProjectController extends Controller
 
         return $this->render(
             '@App/showProject.html.twig',
-            ['project' => $project, 'start' => $project->getDate()->getTimestamp(), 'status' => $status]
+            [
+                'project' => $project,
+                'start' => $project->getDate()->getTimestamp(),
+                'status' => $status,
+                'timeout' => $this->getParameter('update_interval_ms')
+            ]
         );
     }
 
@@ -114,7 +119,7 @@ class ProjectController extends Controller
         return new JsonResponse(
             [
                 'time' => $currentTime->getTimestamp(),
-                'interval' => $this->getParameter('update_interval_ms')
+                'interval' => $this->getParameter('update_interval_ms'),
             ]
         );
     }
@@ -190,6 +195,7 @@ class ProjectController extends Controller
      * @param Project $project
      *
      * @return Response
+     * @throws OptimisticLockException
      */
     public function EditAction(
         Request $request,
@@ -252,6 +258,7 @@ class ProjectController extends Controller
      * @param Request $request
      *
      * @return Response
+     * @throws OptimisticLockException
      */
     public function createAction(
         Request $request
