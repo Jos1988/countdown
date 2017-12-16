@@ -137,15 +137,13 @@ class ProjectFixtures extends Fixture
         $projectRepo = $this->container->get('countdown.repository.project');
         /** @var ItemRepository $itemRepo */
         $itemRepo = $this->container->get('countdown.repository.item');
-        /** @var UserManager $userManager */
-        $userManager = $this->container->get('fos_user.user_manager');
 
         foreach ($this::$DATA as $data) {
             $time = new DateTime('now');
             $time->sub(new DateInterval('PT1H'));
             $start = clone $time;
             $project = $projectRepo->create();
-            $user = $userManager->findUserByUsername($data['user']);
+            $user = $this->getReference('user_' . $data['user']);
             $project->setTitle($data['title'])
                 ->setDescription($data['description'])
                 ->setIdentifier($data['ident'])
@@ -172,6 +170,16 @@ class ProjectFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    /**
+     * Get dependencies.
+     *
+     * @return array
+     */
+    public function getDependencies()
+    {
+        return [UserFixtures::class];
     }
 
     /**

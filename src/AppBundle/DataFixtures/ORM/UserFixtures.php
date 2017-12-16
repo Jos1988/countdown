@@ -3,6 +3,7 @@
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\BadMethodCallException;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManager;
 
@@ -39,6 +40,13 @@ class UserFixtures extends Fixture
             foreach ($userData['roles'] as $role) : $user->addRole($role); endforeach;
 
             $userManager->updateUser($user);
+
+            try {
+                $this->addReference('user_' . $userData['username'], $user);
+            } catch (BadMethodCallException $e) {
+                dump($e);
+                die();
+            }
         }
     }
 }
