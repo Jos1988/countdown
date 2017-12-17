@@ -8,7 +8,7 @@ the current time frame and priorities to any authorized user.
 
 The schedule can be changed on the fly as the need arises. 
 
-Current version 2.0
+Current version 1.2
 
 Current Features?
 --------------
