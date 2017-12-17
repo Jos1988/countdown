@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Action;
 use AppBundle\Entity\Project;
 use AppBundle\Services\CountdownService;
+use DateTime;
 use Doctrine\ORM\OptimisticLockException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -58,7 +59,10 @@ class ActionController extends Controller
 
         $actions = $this->get(CountdownService::class)->getUpdatedActions($project, $lastUpdate);
 
-        $responseData = [];
+        $interval = 3000;
+        $newLastUpdate = new DateTime('now');
+
+        $responseData = ['interval' => $interval, 'newLastUpdate' => $newLastUpdate->getTimestamp()];
         foreach ($actions as $action) {
             $responseData[$action->getId()] = $action->isCompleted();
         }

@@ -16,20 +16,41 @@ $(document).ready(function () {
     getActionUpdates();
 });
 
+/**
+ * Start loop for continues checking for updated actions.
+ */
 function getActionUpdates() {
-    var interval = $('.main-view-holder').attr('data-timeout');
-    var project = $('.main-view-holder').attr('data-project');
-    var lastUpdate = $('.main-view-holder').attr('data-last-update');
-    setInterval(function () {
-        getUpdate(project, lastUpdate);
-    }, interval)
+    var mainViewHolder = $('.main-view-holder');
+    var interval = mainViewHolder.attr('data-timeout');
+    getUpdate(mainViewHolder.attr('data-project'), mainViewHolder.attr('data-last-update'), interval);
 }
 
-function getUpdate(project, lastUpdate) {
+/**
+ * Check for updated actions.
+ *
+ * @param project       project id
+ * @param lastUpdate    Timestamp of last update received.
+ * @param interval      Current interval of update loop.
+ */
+function getUpdate(project, lastUpdate, interval) {
     var url = '/action/pull/' + project + '/' + lastUpdate;
-    $.ajax(url).done(function (data) {
-        console.log(url);
-        console.log(data);
+    setTimeout(function () {
+        $.ajax(url).done(function (data) {
+            console.log(data);
+            var mainViewHolder = $('.main-view-holder');
+            updateCheckboxes(mainViewHolder, data);
+            getUpdate(mainViewHolder.attr('data-project'), mainViewHolder.attr('data-last-update'), data['interval']);
+        });
+    }, interval);
+}
+
+function updateCheckboxes(mainViewHolder, data) {
+    mainViewHolder.attr('data-last-update', data['newLastUpdate']);
+    $.each(data, function (key, value) {
+        console.log(key, value);
+        if (-1 === $.inArray(key, ['interval', 'newLastUpdate'])) {
+            $('#action-' + key).attr('checked', value);
+        }
     });
 }
 
