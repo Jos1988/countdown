@@ -8,7 +8,7 @@ the current time frame and priorities to any authorized user.
 
 The schedule can be changed on the fly as the need arises. 
 
-Current version 1.0
+Current version 2.0
 
 Current Features?
 --------------
@@ -19,14 +19,16 @@ Current Features?
 
   * Option to display schedule on a public link, no login required;
   
+  * More information about deadline on mouse click.
+   
+  * Task list per deadline where user can indicate if task has been completed.
+  
   * Fully Responsive. 
 
 Planned Features?
 --------------
 
- * More information about deadline on mouse click.
- 
- * Task list per deadline where user can indicate if task has been completed.
+ * Manager your user accounts for your co-workers/personnel.
 
 Possible Features?
 --------------
