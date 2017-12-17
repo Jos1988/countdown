@@ -36,4 +36,14 @@ class ProjectRepository extends EntityRepository
             $this->getEntityManager()->flush($project);
         }
     }
+
+    /**
+     * Flush all entities.
+     *
+     * @throws OptimisticLockException
+     */
+    public function flushAll()
+    {
+        $this->getEntityManager()->flush();
+    }
 }

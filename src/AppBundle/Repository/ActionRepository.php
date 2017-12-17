@@ -16,14 +16,19 @@ use Doctrine\ORM\EntityRepository;
 class ActionRepository extends EntityRepository
 {
     /**
+     * Persist action and flush if true.
+     *
      * @param Action $action
+     * @param bool   $flush
      *
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function persist(Action $action)
+    public function persist(Action $action, $flush = false)
     {
         $this->getEntityManager()->persist($action);
-        $this->getEntityManager()->flush($action);
+        if ($flush) {
+            $this->getEntityManager()->flush($action);
+        }
     }
 
     /**

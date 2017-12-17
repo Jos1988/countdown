@@ -47,6 +47,13 @@ class Project
     private $identifier;
 
     /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     */
+    private $lastUpdate = null;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="allow_public_view", type="boolean", options={"default" : false})
@@ -162,6 +169,30 @@ class Project
     public function setIdentifier(string $identifier)
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * get LastUpdate
+     *
+     * @return DateTime
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
+     * set LastUpdate
+     *
+     * @param DateTime $lastUpdate
+     *
+     * @return Project
+     */
+    public function setLastUpdate(DateTime $lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
 
         return $this;
     }

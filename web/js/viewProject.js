@@ -36,10 +36,13 @@ function getUpdate(project, lastUpdate, interval) {
     var url = '/action/pull/' + project + '/' + lastUpdate;
     setTimeout(function () {
         $.ajax(url).done(function (data) {
-            console.log(data);
             var mainViewHolder = $('.main-view-holder');
             updateCheckboxes(mainViewHolder, data);
-            getUpdate(mainViewHolder.attr('data-project'), mainViewHolder.attr('data-last-update'), data['interval']);
+            if (undefined !== data['interval']) {
+               interval = data['interval'];
+            }
+
+            getUpdate(mainViewHolder.attr('data-project'), mainViewHolder.attr('data-last-update'), interval);
         });
     }, interval);
 }
@@ -47,7 +50,6 @@ function getUpdate(project, lastUpdate, interval) {
 function updateCheckboxes(mainViewHolder, data) {
     mainViewHolder.attr('data-last-update', data['newLastUpdate']);
     $.each(data, function (key, value) {
-        console.log(key, value);
         if (-1 === $.inArray(key, ['interval', 'newLastUpdate'])) {
             $('#action-' + key).attr('checked', value);
         }

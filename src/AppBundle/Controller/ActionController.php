@@ -32,17 +32,16 @@ class ActionController extends Controller
      */
     public function pushUpdateAction(Action $action, string $newStatus)
     {
-        if ($action->getItem()->getProject()->getUser() !== $this->getUser()) {
-            throw new Exception('User does not have access to this project.', 403);
-        }
-
-        $this->get(CountdownService::class)->setActionCompleted($action, $newStatus);
+        $countdownService = $this->get(CountdownService::class);
+        $countdownService->checkAuthorized($this->getUser(), $action->getItem()->getProject());
+        $countdownService->setActionStatus($action, $newStatus);
 
         return new Response();
     }
 
     /**
-     * Gets updated actions for current project.
+     * Gets updated actions for current project.\
+     *
      * @Route("/action/pull/{project}/{lastUpdate}", name="countdown_action_pull")
      *
      * @param Project $project
@@ -53,20 +52,30 @@ class ActionController extends Controller
      */
     public function pullUpdatedAction(Project $project, int $lastUpdate)
     {
-        if ($project->getUser() !== $this->getUser()) {
-            throw new Exception('User does not have access to this project.', 403);
+        $countdownService = $this->get(CountdownService::class);
+        $countdownService->checkAuthorized($this->getUser(), $project);
+        //Safety margin to handle updates in browser multiple times.
+        $updateLag = $this->getParameter('update_lag_sec');
+
+        if (null !== $project->getLastUpdate() &&
+            $lastUpdate - $updateLag <= $project->getLastUpdate()->getTimestamp()) {
+            $actions = $countdownService->getUpdatedActions(
+                $project,
+                $lastUpdate - $updateLag
+            );
+            $newLastUpdate = new DateTime('now');
+
+            $responseData = [
+                'interval' => $this->getParameter('update_interval_ms'),
+                'newLastUpdate' => $newLastUpdate->getTimestamp(),
+            ];
+            foreach ($actions as $action) {
+                $responseData[$action->getId()] = $action->isCompleted();
+            }
+
+            return new JsonResponse($responseData);
         }
 
-        $actions = $this->get(CountdownService::class)->getUpdatedActions($project, $lastUpdate);
-
-        $interval = 3000;
-        $newLastUpdate = new DateTime('now');
-
-        $responseData = ['interval' => $interval, 'newLastUpdate' => $newLastUpdate->getTimestamp()];
-        foreach ($actions as $action) {
-            $responseData[$action->getId()] = $action->isCompleted();
-        }
-
-        return new JsonResponse($responseData);
+        return new Response();
     }
 }

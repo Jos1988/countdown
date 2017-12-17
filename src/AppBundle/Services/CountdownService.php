@@ -4,6 +4,7 @@ namespace AppBundle\Services;
 
 use AppBundle\Entity\Action;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\User;
 use AppBundle\Repository\ActionRepository;
 use AppBundle\Repository\ItemRepository;
 use AppBundle\Repository\ProjectRepository;
@@ -79,13 +80,26 @@ class CountdownService
     }
 
     /**
+     * Check if user is authorized to view/edit project.
+     *
+     * @param User    $user
+     * @param Project $project
+     */
+    public function checkAuthorized(user $user, Project $project)
+    {
+        if ($project->getUser() !== $user) {
+            throw new Exception('User does not have access to this project.', 403);
+        }
+    }
+
+    /**
      * @param Action $action
      *
      * @param string $completed
      *
      * @throws OptimisticLockException
      */
-    public function setActionCompleted(Action $action, string $completed)
+    public function setActionStatus(Action $action, string $completed)
     {
         if ($completed === 'true') {
             $completed = true;
@@ -98,7 +112,12 @@ class CountdownService
         $action->setCompleted($completed)
             ->setUpdated(new DateTime());
 
-        $this->actionRepository->persist($action);
+        $project = $action->getItem()->getProject();
+        $project->setLastUpdate(new DateTime('now'));
+
+        $this->actionRepository->persist($action, false);
+        $this->projectRepository->persist($project, false);
+        $this->projectRepository->flushAll();
     }
 
     /**
