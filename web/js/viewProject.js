@@ -14,6 +14,13 @@ $(document).ready(function () {
 
     armCheckboxes();
     getActionUpdates();
+
+    // IOS data-toggle issue work-around (https://foundation.zurb.com/forum/posts/47513-data-toggle-on-ios-touch-not-working)
+
+    $('[data-toggle]').on('click', function () {
+        $(document).trigger('click.zf.trigger', '[data-toggle]');
+    });
+
 });
 
 /**
@@ -39,7 +46,7 @@ function getUpdate(project, lastUpdate, interval) {
             var mainViewHolder = $('.main-view-holder');
             updateCheckboxes(mainViewHolder, data);
             if (undefined !== data['interval']) {
-               interval = data['interval'];
+                interval = data['interval'];
             }
 
             getUpdate(mainViewHolder.attr('data-project'), mainViewHolder.attr('data-last-update'), interval);
